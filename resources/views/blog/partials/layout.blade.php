@@ -123,7 +123,7 @@
                   </div>
                 </div>
                 <div class="mp3-block">
-                <marquee style="color:#D6B078;" behavior=" " direction="">
+                <marquee class="marquee-mp3" behavior=" " direction="">
                   胡歌-一吻天荒
                 </marquee>
                   <audio  controls >

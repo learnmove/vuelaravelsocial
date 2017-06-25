@@ -69,16 +69,21 @@ Route::get('stream-video',function(){
 
 // guest register login
 Route::group(['middleware'=>'guest'],function(){
-	Route::get('register',function(){
-		return view('member.register');
-	})
+	Route::get('register','RegisterController@GetRegister')
 	->name('register');
 	;
-	Route::get('login',function(){
-		return view('member.login');
-	})
+	Route::post('register','RegisterController@PostRegister')
+	->name('post-register');
+	;
+
+
+	Route::get('login','LoginController@getLogin')
 	->name('login')
 	;
+	Route::post('login','LoginController@postLogin')
+	->name('Postlogin')
+	;
+
 });
 // friend
 Route::group(['prefix'=>'friend','as'=>'friend::'],
@@ -89,4 +94,10 @@ Route::group(['prefix'=>'friend','as'=>'friend::'],
 		Route::get('invite',['as'=>'invite',function(){
 			return view('friend.my-friends-invite');
 		}]);
+});
+
+Route::group(['middleware'=>'auth'],function(){
+		Route::get('logout','LoginController@logout')
+	->name('logout')
+	;
 });

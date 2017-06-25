@@ -9,47 +9,59 @@
              註冊帳號
             <span class="sign-top">☺ </span>
             </div>
-          <form>
+            @if(Session::has('errors'))
+            <div class="alert alert-danger">
+              <ul>
+                @foreach($errors->all() as $error)
+                <li>{{$error}} </li>
+                @endforeach
+              </ul>
+            </div>
+            @endif
+      
+          <form action="{{route('register')}}" enctype="multipart/form-data"  method="post">
+          {{csrf_field()}}
             
 
             <div class="form-group" >
             <label>帳號</label>
-            <input type="text" placeholder="craigchang30248" class="form-control" maxlength="20" name="account">
+            <input  type="text" placeholder="craigchang30248" class="form-control" maxlength="20" value="{{old('account')}} " name="account">
             </div>
         <div class="form-group" >
             <label>密碼</label>
-            <input type="password" placeholder="5位中英數字以上" class="form-control" maxlength="20" name="password">
+            <input  type="password" value="{{old('password')}}"  placeholder="5位中英數字以上" class="form-control" maxlength="20" name="password">
             </div>
 
             <div class="avatar">
               <img src="  " id="img-upload">
 <div class="image-avatar">大頭貼</div>
-<input type="file" id="imginput"  name="image" name="image" accept="image/jpeg,image/gif" id="">
+<input  type="file" id="imginput"   name="avatar" accept="image/jpeg,image/gif" id="">
             </div>
          <div class="form-group" >
             <label for="usr">信箱</label>
-            <input type="email" class="form-control" placeholder="craigchang30248@gmail.com" maxlength="50" name="username">
+            <input  type="email" value="{{old('email')}} " class="form-control" placeholder="craigchang30248@gmail.com" maxlength="50" name="email">
             </div>
             <div class="form-group" >
             <label for="usr">學校/公司</label>
-            <input type="text" maxlength="30"  placeholder="國立高雄應用科技大學|雄獅旅遊Lion Travel" class="form-control" maxlength="20" name="company">
+            <input  type="text" maxlength="30" value="{{old('company')}} "  placeholder="國立高雄應用科技大學|雄獅旅遊Lion Travel" class="form-control" maxlength="20" name="company">
             </div>
           <div class="form-group" >
             <label for="usr">年紀</label>
-            <input type="number" min="1" class="form-control" placeholder="25" 
+            <input  type="number" value="{{old('age')}} " min="1" class="form-control" placeholder="25" 
              name="age">
             </div>
            <div class="form-group" >
             <label for="usr">大名</label>
-            <input type="text" class="form-control"   placeholder="張小豪/3個字" maxlength="3" name="username">
+            <input  type="text" value="{{old('username')}} " class="form-control"   placeholder="張小豪/3個字" maxlength="3" name="username">
             </div>
                       <div class="form-group" >
             <label for="usr">設計師名稱</label>
-            <input type="text" placeholder="英文：Johhny/9個字 中文：麵包超人/7個字" class="form-control" maxlength="9" name="designer">
+            <input  type="text" value="{{old('designer')}} " placeholder="英文：Johhny/9個字 中文：麵包超人/7個字" class="form-control" maxlength="9" name="designer">
             </div>
              <div class="form-group" >
             <label for="usr">星座</label>
-          <select name="zodiac" class="selectpicker">
+          <select name="zodiac" value="{{old('zodiac')}} " class="selectpicker">
+<option value="">星座</option>
 <option value="牡羊座">牡羊座</option>
 <option value="摩羯座">摩羯座</option>
 <option value="雙子座　">雙子座</option>
@@ -66,7 +78,8 @@
           </select>
             </div>
             <label> 居住地</label>
-              <select class="selectpicker" name="location">
+              <select class="selectpicker"  name="location">
+<option value="">市區</option>
 <option value="臺北市">臺北市</option>
 <option value="新北市">新北市</option>
 <option value="基隆市">基隆市</option>
@@ -90,27 +103,22 @@
 <option value="金馬地區">金馬地區</option>
 </select>
             <div class="radio">
-              <label for="usr"><input type="radio" name="optradio">窩素男森<span class="boy">♂</span></label>
+              <label for="usr"><input  type="radio" name="gender">窩素男森<span class="boy">♂</span></label>
             </div>
 
 
            <div class="radio">
-              <label for="usr"><input type="radio" name="optradio">窩素女森<span class="girl">♀</span> </label>
+              <label for="usr"><input  type="radio" name="gender">窩素女森<span class="girl">♀</span> </label>
             </div>
             <button class="btn btn-primary" type="submit">來企註冊嘍!</button>
           </form>
 
 
         </div>
-        <!-- jq -->
-        <script
-        src="https://code.jquery.com/jquery-3.2.1.js"
-        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-        crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  
 <!-- avatar -->
 @stop
-@section('javscript')
+@section('javascript')
 <script>
 function readUrl(input){
   if(input.files&&input.files[0]){

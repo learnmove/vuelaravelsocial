@@ -45,14 +45,19 @@
              
 
       {{--  --}}
-      @if(!Auth::check())
+      @if(Auth::check())
            <li class="bottom-border"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-smile-o" aria-hidden="true"></i>
               屬於我的
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
+               <li class="bottom-border">
+                 {{Auth::user()->account}}
+               </li>
                 <li class="bottom-border"><a href="{{route('myblog::article-list')}}">我的日記</a></li>
                 <li class="bottom-border"><a href="{{route('friend::my')}}">我的朋友</a></li>
                 <li class="bottom-border"><a href="./myblog-article.html">我的作品</a></li>
+              </ul></li>
+                 <li class="bottom-border"><a href="{{route('logout')}} ">登出</a></li>
               </ul></li>
               @else
                  <li class="bottom-border"><a href="{{route('login')}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>

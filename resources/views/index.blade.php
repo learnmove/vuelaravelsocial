@@ -35,7 +35,7 @@
                       
                       <div class="user-avatar ">
                         
-                        <img class="img-circle  avatar" src="https://wordsmith.org/words/images/avatar2_large.png ">
+                        <img class="img-circle  avatar" src="{{asset('user/avatars/qwdqwd.jpg')}}">
                         
                       </div>
                       
