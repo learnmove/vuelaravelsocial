@@ -5,6 +5,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Image;
 use Auth;
+use App\UserInfo;
 class RegisterController extends Controller
 {
     //
@@ -12,7 +13,7 @@ class RegisterController extends Controller
 		return view('member.register');
 	}
 	public function PostRegister(Request $rq){
-		$this->customValidate($rq);
+		// $this->customValidate($rq);
 
 		if ($rq->hasFile('avatar')) {
 			$avatar=$rq->file('avatar');
@@ -21,9 +22,11 @@ class RegisterController extends Controller
 			Image::make($avatar)->save( public_path('/user/origin-avatars/'.$filename ));
 			$user=$rq->except('avatar');
 			$user['avatar']=$filename;
-			$user['ip']=$rq->ip();
 			User::create($user);
 			$user=User::where('username',$rq->username)->first();
+			$userinfo=new Userinfo(['online'=>\Carbon\Carbon::now(),'ip'=>$rq->ip()]);
+			$user->userinfo()->save($userinfo);
+
 			Auth::login($user);	
 			return redirect()->route('index');
 
