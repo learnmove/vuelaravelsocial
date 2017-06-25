@@ -13,7 +13,7 @@ class RegisterController extends Controller
 		return view('member.register');
 	}
 	public function PostRegister(Request $rq){
-		// $this->customValidate($rq);
+		$this->customValidate($rq);
 
 		if ($rq->hasFile('avatar')) {
 			$avatar=$rq->file('avatar');

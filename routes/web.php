@@ -17,22 +17,18 @@ Route::get('/', function () {
 
 Route::group(['prefix'=>'blog'],function(){
 
-// myblog
-	Route::group(['as'=>'myblog::'],function(){
+	Route::group(['as'=>'blog::'],function(){
 		
 	
-			Route::get('/myblog',['as'=>'article-list',function () {
-				    return view('blog.article-list');
-				}] );
+			Route::get('/{user}','BlogController@getBlog' )->name('article-list');
 
 
-				Route::get('/myblog/article', ['as'=>'article',function () {
-				    return view('blog.article');
-				}]);
+				// Route::get('/myblog/article', ['as'=>'article',function () {
+				//     return view('blog.article');
+				// }]);
 
 
 			});
-	// other people
 
 	// public
 

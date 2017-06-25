@@ -26,8 +26,6 @@ class User extends Authenticatable
             'location',
             'zodiac',
             'avatar',
-            'ip'
-
     ];
 
     /**
@@ -40,6 +38,10 @@ class User extends Authenticatable
     ];
     public function userinfo(){
         return $this->hasOne('App\UserInfo');
+
+    }
+    public function blog(){
+        return $this->hasOne('App\Blog');
 
     }
 }

@@ -1,9 +1,12 @@
 @extends('partials.layout')
 @section('title')
+{{$blog->blog_title}}
 @stop
 @section('css')
    <link rel="stylesheet" type="text/css" href="{{asset('css/myblog.css')}}">
-   <link rel="stylesheet" type="text/css" href="{{asset('css/blog/office/coffee/custom-blog.css')}}">
+   @if($blog->css!=$user)
+   <link rel="stylesheet" type="text/css" href="{{asset('css/blog/office/yellow/custom-blog.css')}}">
+   @endif
    @yield('children-css')
 @stop
 
@@ -11,12 +14,10 @@
 @section('content')
       <div class="self-container all-preference">
         <div class="jumbotron jumbotron-preference">
-          <img class="self-banner" src="https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/17362562_1439964182692184_1634433238124984600_n.jpg?oh=9c0d2080b0e2a971f200a4ab6bc776cb&oe=59C772A5">
+          <img class="self-banner" src="{{asset('user/banners/abcdefg.jpg')}} ">
           <div class="jumbotron-text">
-              <h1 class="self-blog-title">Bootstrap Tutorial</h1>
-          <p class="self-blog-description">Bootstrap is the most popular HTML, CSS, and JS framework for developing
-          responsive, mobile-first projects on the web.</p>
-        <marquee>這裡放要跑的文字</marquee>
+              <h1 class="self-blog-title">{{$blog->banner_title}}</h1>
+          <p class="self-blog-description">{{$blog->banner_text}} </p>
 
           </div>
         
@@ -126,7 +127,7 @@
                 <marquee class="marquee-mp3" behavior=" " direction="">
                   胡歌-一吻天荒
                 </marquee>
-                  <audio  controls >
+                  <audio style="display:none;" autoplay loop controls >
                     <source src="http://www.170mv.com/kw/other.web.rm01.sycdn.kuwo.cn/resource/n2/83/64/2596463940.mp3" type="audio/mpeg">
                     Your browser does not support the audio element.
                   </audio>

@@ -53,7 +53,7 @@
                <li class="bottom-border">
                  {{Auth::user()->account}}
                </li>
-                <li class="bottom-border"><a href="{{route('myblog::article-list')}}">我的日記</a></li>
+                <li class="bottom-border"><a href="{{route('blog::article-list',Auth::user()->account)}}">我的日記</a></li>
                 <li class="bottom-border"><a href="{{route('friend::my')}}">我的朋友</a></li>
                 <li class="bottom-border"><a href="./myblog-article.html">我的作品</a></li>
               </ul></li>

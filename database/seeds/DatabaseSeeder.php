@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
             function($u){
 
          $u->userinfo()->save(factory(App\UserInfo::class)->make());
+         $u->blog()->save(factory(App\Blog::class)->make());
 
         }
-
         );
 
     }

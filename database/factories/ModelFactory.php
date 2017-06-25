@@ -31,11 +31,22 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\UserInfo::class,function(Faker\Generator $faker){
+$factory->define(App\UserInfo::class,
+    function(Faker\Generator $faker){
 
     return [
         'ip'=>$faker->ipv4,
         'online'=>Carbon\Carbon::now()
+
+    ];
+
+});
+
+$factory->define(App\Blog::class,
+    function(Faker\Generator $faker){
+
+    return [
+        'blog_title'=>$faker->userName
 
     ];
 
