@@ -1,0 +1,89 @@
+// preference
+@import "../../../../mobile-pc/rwd.scss";
+marquee{
+  margin:15px 0;
+}
+a{
+}
+ .all-preference{
+  font-family: simhei,Comic Sans MS,arial,helvetica,sans-serif;
+ background-color: #CF9A56;
+  max-width: 1500px;
+  color:#999999;
+  // background-image:url(http://wallpapersqq.net/wp-content/uploads/2015/11/Kobe-Bryant-27.jpg) ;
+
+  // background-color: #804399;
+  // background-repeat: no-repeat;
+  // background-position: center center;
+  // background-size: cover;
+  // background-attachment: fixed;
+  // @media screen and (max-width: 600px) {
+  // background-size: 100% auto;
+
+    
+  // }
+}
+  
+.border{
+  // border:red solid 1px;
+}
+.block-background{
+
+}
+.jumbotron-preference{
+  color:black;
+  background: transparent;
+}
+.top-tab-preference{
+  // background-color: #6A4E00;
+  color:#D4BC9C;
+
+  
+  // background-image:url(http://png.clipart.me/previews/3df/flower-background-illustration-graphic-21503.jpg);
+}
+.article-title{
+  color:#FF0F5E;
+  border-bottom: 1px solid #D4BC9C;
+}
+.add-friend{
+  background: #FFFFFF;
+  border:0px;
+  color:black;
+
+}
+.article-preference{
+
+  // background-color: black;
+  background-color: transparent;
+  color:#010000;
+}
+.bottom-background{
+// background: url(https://web.archive.org/web/20131227001038im_/http://l.yimg.com/e/style/1/135/1136966868.jpg) #fff  repeat left top;
+background: url(https://web.archive.org/web/20131112035318im_/http://f12.wretch.yimg.com/jkshu/32764/o1605338989.jpg?3PnfZM_mzrZssgLANbvjTNIKAY6XiDUw40MPYayD);
+}
+
+.jumbotron-text{
+  color:#fff;
+
+}
+.mobile-background-color{
+  @include mobile-md-down(){
+  overflow-x:hidden;
+  }
+}
+a{
+  color:#906C3E;
+  
+}
+// end preference
+
+.come-count-block{
+  color:#6A4E00;
+
+}
+.comment-user-block{
+  color:#000000;
+}
+.content-block{
+  background-color: #FFFFFF;
+}

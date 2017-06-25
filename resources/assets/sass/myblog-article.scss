@@ -1,0 +1,43 @@
+.article-comment-block{
+
+	padding: 50px;
+	@media screen and (max-width:600px){
+	padding: 0px;
+
+	}
+	.article-commnet-item{
+	margin-top:20px;
+
+		display:flex;
+		@media screen and (min-width:600px){
+			margin-top:20px;
+	 		
+	     }
+			.article-commnet-avatar{
+		width:20%;
+		height:50px;
+		@media screen and (min-width:600px){
+	 		width:100px;
+			height:100px;
+	
+	     }
+
+		img{
+			width:100%;
+			height:auto;
+		}
+	 }
+	 	.article-commnet-info{
+	 		width:80%;
+
+	 		margin-left:20px;
+	 		.article-commnet-user-name{
+	 			font-weight:bold;
+	 		}
+	 		.article-commnet-content{
+	 			float:left;
+	 		}
+	 	}
+	}
+
+}
