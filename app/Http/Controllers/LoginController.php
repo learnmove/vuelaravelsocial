@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
+use App\Userinfo;
 class LoginController extends Controller
 {
     //
@@ -13,7 +14,7 @@ class LoginController extends Controller
 
 	public function postLogin(Request $rq){
 			$this->validate($rq,[
-			'account'=>'required|unique:users|max:255',
+			'account'=>'required|max:255',
 			'password'=>'min:5|max:255|required',
 		
 			],
@@ -25,6 +26,10 @@ class LoginController extends Controller
 			]
 			);
 		if (Auth::attempt(['account'=>$rq->input('account'),'password'=>$rq->input('password')])) {
+			$user=Userinfo::find(Auth::user()->id);
+			$user->ip=$rq->ip();
+			$user->online=\Carbon\Carbon::now();
+			$user->save();
 			return redirect()->route('index');
 			# code...
 		}else{
@@ -33,6 +38,9 @@ class LoginController extends Controller
 	}
 
 	public function logout(){
+		$user=Userinfo::find(Auth::user()->id);
+		$user->offline=\Carbon\Carbon::now();
+		$user->save();
 		Auth::logout();
 		return redirect()->route('login');
 	}

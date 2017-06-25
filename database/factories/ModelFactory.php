@@ -25,8 +25,18 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'status'=>$faker->numberBetween(0,1),
         'username'=>$faker->name,
         'designer'=>$faker->name,
-        'ip'=>$faker->ipv4,
+        // 'ip'=>$faker->ipv4,
         'location'=>$faker->state,
 
     ];
+});
+
+$factory->define(App\UserInfo::class,function(Faker\Generator $faker){
+
+    return [
+        'ip'=>$faker->ipv4,
+        'online'=>Carbon\Carbon::now()
+
+    ];
+
 });

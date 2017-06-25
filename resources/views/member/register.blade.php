@@ -25,7 +25,7 @@
 
             <div class="form-group" >
             <label>帳號</label>
-            <input  type="text" placeholder="craigchang30248" class="form-control" maxlength="20" value="{{old('account')}} " name="account">
+            <input  required type="text" placeholder="craigchang30248" class="form-control" maxlength="20" value="{{old('account')}}" name="account">
             </div>
         <div class="form-group" >
             <label>密碼</label>
@@ -39,7 +39,7 @@
             </div>
          <div class="form-group" >
             <label for="usr">信箱</label>
-            <input  type="email" value="{{old('email')}} " class="form-control" placeholder="craigchang30248@gmail.com" maxlength="50" name="email">
+            <input  type="email" value="{{old('email')}}" class="form-control" placeholder="craigchang30248@gmail.com" maxlength="50" name="email">
             </div>
             <div class="form-group" >
             <label for="usr">學校/公司</label>
@@ -47,20 +47,20 @@
             </div>
           <div class="form-group" >
             <label for="usr">年紀</label>
-            <input  type="number" value="{{old('age')}} " min="1" class="form-control" placeholder="25" 
+            <input  type="number" value="{{old('age')}}" min="1" class="form-control" placeholder="25" 
              name="age">
             </div>
            <div class="form-group" >
             <label for="usr">大名</label>
-            <input  type="text" value="{{old('username')}} " class="form-control"   placeholder="張小豪/3個字" maxlength="3" name="username">
+            <input  type="text" value="{{old('username')}}" class="form-control"   placeholder="張小豪/3個字" maxlength="3" name="username">
             </div>
                       <div class="form-group" >
             <label for="usr">設計師名稱</label>
-            <input  type="text" value="{{old('designer')}} " placeholder="英文：Johhny/9個字 中文：麵包超人/7個字" class="form-control" maxlength="9" name="designer">
+            <input  type="text" value="{{old('designer')}}" placeholder="英文：Johhny/9個字 中文：麵包超人/7個字" class="form-control" maxlength="9" name="designer">
             </div>
              <div class="form-group" >
             <label for="usr">星座</label>
-          <select name="zodiac" value="{{old('zodiac')}} " class="selectpicker">
+          <select name="zodiac"  class="selectpicker">
 <option value="">星座</option>
 <option value="牡羊座">牡羊座</option>
 <option value="摩羯座">摩羯座</option>
