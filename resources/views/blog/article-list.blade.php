@@ -3,7 +3,8 @@
   <div class="left-side box">
      @foreach( $articles as $article)   
       @if($article->status) 
-        @if(!$article->secret)
+        
+        @if(!$article->secret||$article->secret&&Auth::check()&&Auth::user()->account==$user)
       <div class="article border article-preference">
                   <div class="article-top">
 
