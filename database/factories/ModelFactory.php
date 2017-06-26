@@ -51,3 +51,12 @@ $factory->define(App\Blog::class,
     ];
 
 });
+$factory->define(App\BlogArticle::class,
+
+    function(Faker\Generator $faker){
+        return [
+            'title'=>$faker->sentence,
+            'content'=>$faker->paragraph
+        ];
+    }
+    );

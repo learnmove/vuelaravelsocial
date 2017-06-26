@@ -42,7 +42,7 @@
               <div class="hot-box">
                 <div class="hot-user-info">
                   <div class="hot-avatar">
-                    <img class="" src="https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/558052_419906758090863_1617995322_n.jpg?oh=fa7828b5be124422906af68fb4be8192&oe=59E13F44">
+                    <img class="" src="{{asset('user/origin-avatars/dddd.jpg')}}">
                   </div>
                   <div class="hot-user-account">  tzarevitch</div>
                   <div class="hot-user-name"> 小美冰淇淋</div>
@@ -59,7 +59,7 @@
               <div class="hot-box">
                 <div class="hot-user-info">
                   <div class="hot-avatar">
-                    <img class="" src="https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/5999_419906794757526_386435983_n.jpg?oh=08ad35578ef7f02f31d123cf50642c88&oe=59DAA20F">
+                    <img class="" src="{{asset('user/origin-avatars/abcd.jpg')}} ">
                   </div>
                   <div class="hot-user-account">  tzarevitch</div>
                   <div class="hot-user-name"> 小美冰淇淋</div>
@@ -107,7 +107,7 @@
               <div class="hot-box">
                 <div class="hot-user-info">
                   <div class="hot-avatar">
-                    <img class="" src="https://web.archive.org/web/20120518083318im_/http://st.aio.com.tw/photo/ai00740205_KSRs4epSgM.jpg">
+                    <img class="" src="{{asset('user/origin-avatars/dddd.jpg')}} ">
                   </div>
                   <div class="hot-user-account">  tzarevitch</div>
                   <div class="hot-user-name"> 小美冰淇淋</div>
@@ -121,7 +121,7 @@
               <div class="hot-box">
                 <div class="hot-user-info">
                   <div class="hot-avatar">
-                    <img class="" src="https://web.archive.org/web/20120518083318im_/http://st.aio.com.tw/photo/ai00454009_0_KSZ0uiuRfq_0637500.jpg">
+                    <img class="" src="{{asset('user/origin-avatars/abcd.jpg')}}">
                   </div>
                   <div class="hot-user-account">  tzarevitch</div>
                   <div class="hot-user-name"> 小美冰淇淋</div>

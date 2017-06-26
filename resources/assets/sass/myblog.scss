@@ -106,7 +106,7 @@ display: flex;
 				font-size: 1vw;
 				margin-top: 15px;
 			@media screen and (max-width: 600px) {
-				width:100px;
+				width:173px;
 				
 			}
 			@media screen and (max-width:500px){
@@ -235,7 +235,11 @@ display: flex;
 		height: auto;
 		text-align: center;
 		}
-
+	.account{
+		display: block;
+		text-overflow:ellipsis;
+		overflow: hidden;
+	}
 	.user-info-block{
 		ul{
 			li{
@@ -295,6 +299,10 @@ display: flex;
 			width:100px;
 
 			}
+			@media screen and (max-width:500px){
+			width:77px;
+
+			}
 			width:160px;
 			height:auto;
 			margin:0 auto;
@@ -318,6 +326,10 @@ display: flex;
 					@media screen and (max-width:600px){
 					width:30px;
 					height:30px;
+					}
+					@media screen and (max-width:500px){
+			    width: 22px;
+   			    height: 22px;
 					}
 					img{
 						width:100%;
@@ -414,3 +426,6 @@ height:400px;
 		border-radius: 10px;
 		
 	}
+.marquee-mp3{
+	color:#9B6B66;
+}

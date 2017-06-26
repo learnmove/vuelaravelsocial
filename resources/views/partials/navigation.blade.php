@@ -21,7 +21,7 @@
             討論區</a></li>
             <li class="bottom-border"><a href="{{route('stream-video')}} "><i class="fa fa-paint-brush" aria-hidden="true"></i>
             創作直播區</a></li>
-            <li class="bottom-border"><a href="{{route('latest-article')}} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            <li class="bottom-border"><a href="{{route('blog::latest-article')}} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
             陌生人日記</a></li>
             <li class="bottom-border"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-smile-o" aria-hidden="true"></i>
               公益區

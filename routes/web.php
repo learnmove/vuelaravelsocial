@@ -18,24 +18,29 @@ Route::get('/', function () {
 Route::group(['prefix'=>'blog'],function(){
 
 	Route::group(['as'=>'blog::'],function(){
-		
+		Route::get('/latest-article', function () {
+	    return view('blog.latest-article');
+	    })->name('latest-article');
 	
-			Route::get('/{user}','BlogController@getBlog' )->name('article-list');
 
+
+
+
+			Route::get('/{user}','BlogController@getBlog')->name('article-list');
+			Route::get('/{user}/{article_id}','BlogController@getBlogArticle')->name('article');
+// 'BlogController@getBlog' 
 
 				// Route::get('/myblog/article', ['as'=>'article',function () {
 				//     return view('blog.article');
 				// }]);
 
 
+
 			});
 
 	// public
 
-	Route::get('/latest-article', function () {
-	    return view('blog.latest-article');
-	})->name('latest-article');
-
+	
 
 });
 

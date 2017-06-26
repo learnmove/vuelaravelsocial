@@ -13,13 +13,17 @@ class RegisterController extends Controller
 		return view('member.register');
 	}
 	public function PostRegister(Request $rq){
-		$this->customValidate($rq);
+		// $this->customValidate($rq);
 
 		if ($rq->hasFile('avatar')) {
 			$avatar=$rq->file('avatar');
 			$filename=$rq->account.'.'.$avatar->getClientOriginalExtension();
-			Image::make($avatar)->resize(60,60)->save( public_path('/user/avatars/'.$filename ));
-			Image::make($avatar)->save( public_path('/user/origin-avatars/'.$filename ));
+			Image::make($avatar)->resize(70,null, function ($constraint) {
+    $constraint->aspectRatio();
+})->save( public_path('/user/avatars/'.$filename ));
+			Image::make($avatar)->resize(315,null, function ($constraint) {
+    $constraint->aspectRatio();
+})->save( public_path('/user/origin-avatars/'.$filename ));
 			$user=$rq->except('avatar');
 			$user['avatar']=$filename;
 			User::create($user);
