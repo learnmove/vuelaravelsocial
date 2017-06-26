@@ -36,10 +36,7 @@
                   <div class="article-top">
 
                     <div class=" article-title  ">  
-                        <a href="
-                   {{route('blog::article',[$user,
-              crypt($article->id,123).$article->id*5    ])}}
-                        ">{{$article->title}}</a>
+                        {{$article->title}}</a>
                     </div>
                     <div class="date">{{$article->created_at->format('Y-m-d')}}</div>
                   </div>
@@ -47,8 +44,12 @@
           
                <span>密碼提示：</span><span>{{$article->hint}} </span>
               <div>
-                 <input type="text" name="">
-               <input type="submit" on class="btn btn-primary btn-xs" name="">
+              <form action="{{route('blog::decrypt',[$user,$article->id])}}" method="get" >
+             
+                  <input type="text" name="decrypt">
+               <input type="submit" class="btn btn-primary btn-xs" value="解密">
+              </form>
+                
 
               </div>
 
@@ -67,6 +68,44 @@
                 @endif
                 @endforeach
               </div>
+
+              @if(Auth::check()&&Auth::user()->account==$user)
+                    <button type="button" class="btn btn-primary btn-lg post-button" data-toggle="modal" data-target=".bs-example-modal-lg">寫日記</button>
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <form method="post" action="{{route('blog::post_article',[$user])}} ">
+              {{csrf_field()}}
+                <div class="form-group">
+                  <label for="post-title">日記標題
+                  </label>
+                  <input type="text"  placeholder="標題16個字以內" maxlength="16" name="title" id="" class="post-title form-control"></div>
+                  
+                  <div class="form-group">
+                    <label for="comment">日記內容</label>
+                    <textarea class="my-textarea"  maxlength="2000" 
+                    style="color:#989898"
+                    placeholder="內容2000個字以內"
+                    name="content" rows="" id="comment"  wrap="hard"></textarea>
+                    <!-- cols="23" -->
+                  </div>
+                  <img src="  " id="img-upload">
+                  <label>選一張有記念性的圖片</label>
+                  <input type="file" id="imginput" name="image" accept="image/jpeg,image/gif" id="">
+                   <div class="form-group">
+                  <label for="post-title">密碼提示：(不設定保持空白)
+                  </label>
+                  <input type="text" placeholder="如果你要設定給某人看給他提示" maxlength="16" name="hint" id="" class="post-title form-control"></div>
+                   <div class="form-group">
+                  <label for="post-title">密碼(不設定保持空白)
+                  </label>
+                  <input type="text" placeholder="中英文都可以" maxlength="16" name="secret" id="" class="post-title form-control"></div>
+                  <button class="btn btn-primary">  送出</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          @endif
               {{ $articles->links() }}
 
 @stop

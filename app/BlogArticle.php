@@ -14,6 +14,8 @@ class BlogArticle extends Model
            'title',
            'content',
            'secret',
+           'hint',
+           'article_site',
            'image',
            'watch_count',
            'status'

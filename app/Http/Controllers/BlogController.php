@@ -5,13 +5,16 @@ use App\User;
 use DB;
 use Illuminate\Http\Request;
 use App\BlogArticle;
+use Auth;
+use Session;
 class BlogController extends Controller
 {
+
 
     //
     public function getBlog($user){
     	$stuff=$this->getBlogStuff($user);
-    	$articles=BlogArticle::where('user_id',$stuff['user_id'])->paginate(3);
+    	$articles=BlogArticle::where('user_id',$stuff['user_id'])->orderBy('created_at','desc')->paginate(5);
 		return view('blog.article-list')->
 		with('blog',$stuff['blog'])->
 		with('user',$user)->
@@ -21,7 +24,6 @@ class BlogController extends Controller
 		;
     }
     public function getBlogArticle($user,$article_site){
-
 
 
         $stuff=$this->getBlogStuff($user);
@@ -35,10 +37,22 @@ class BlogController extends Controller
 		with('user',$user)->
 		with('avatar',$stuff['avatar'])->
 		with('article',$article)->
-		with('articles_latest',$stuff['articles_latest']);
+		with('articles_latest',$stuff['articles_latest'])
+		;
 
 		
     
+    }
+    public function getDecryptArticle(Request $rq,$user,$article_id){
+    	$decrypt=$rq->input('decrypt');
+    	$article=BlogArticle::find($article_id);
+    	$article_site=$article->article_site;
+    	if($article->secret==$decrypt){
+    		Session::put($article->title, true);
+    		return redirect()->route('blog::article',['user'=>$user,'article_id'=>$article_site]);
+    	}else{
+    		return redirect()->back();
+    	}
     }
 
 
@@ -46,7 +60,6 @@ class BlogController extends Controller
 
 
     public function getBlogStuff($user){
-
     	$useraccount=User::where('account',$user)->first();
     	$user_id=$useraccount->id;
     	if($useraccount->avatar){
@@ -56,10 +69,10 @@ class BlogController extends Controller
     		$avatar='user.jpg';
     	}
 		$articles_latest=BlogArticle::where('user_id',
-			$user_id)->take(10)->pluck('title','article_site')->all();
-    	
+			$user_id)->orderBy('created_at','desc')->take(11)->pluck('title','article_site');
     	DB::table('blog')->where('user_id',$user_id)->increment('visited_count');
     	$blog=$useraccount->blog;
+
     	return ['blog'=>$blog,'avatar'=>$avatar,'user_id'=>$user_id,'articles_latest'=>$articles_latest];
     }
 

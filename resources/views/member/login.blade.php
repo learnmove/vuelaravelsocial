@@ -28,7 +28,7 @@
             value="{{old('account')}}"
              placeholder="craigchang30248" class="form-control" maxlength="100" name="account"  >
             </div>
-        <div class="form-group" >
+        <div class="form-grou" >
             <label>密碼</label>
             <input type="password" 
             value="{{old('password')}}"

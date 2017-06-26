@@ -35,6 +35,7 @@
                 <div class="block-background user-info-block border">
                   <div class="top-tab-preference account links-top-background">
                     {{$user}}'s home
+
                   </div>
                   
                   <div class="avatar">
@@ -134,31 +135,7 @@
             </div>
           </div>
         </div>
-        <button type="button" class="btn btn-primary btn-lg post-button" data-toggle="modal" data-target=".bs-example-modal-lg">寫日記</button>
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <form>
-                <div class="form-group">
-                  <label for="post-title">日記標題
-                  </label>
-                  <input type="text" placeholder="標題16個字以內" maxlength="16" name="title" id="" class="post-title form-control"></div>
-                  
-                  <div class="form-group">
-                    <label for="comment">日記內容</label>
-                    <textarea class="my-textarea"  maxlength="2000" 
-                    placeholder="內容2000個字以內"
-                    name="content" rows="" id="comment"  wrap="hard"></textarea>
-                    <!-- cols="23" -->
-                  </div>
-                  <img src="  " id="img-upload">
-                  <label>選一張有記念性的圖片</label>
-                  <input type="file" id="imginput" name="image" accept="image/jpeg,image/gif" id="">
-                  <button class="btn btn-primary">  送出</button>
-                </form>
-              </div>
-            </div>
-          </div>
+  
           <!-- image enlarge -->
            <div class="modal fade" id="enlargeImageModal" tabindex="-1" role="dialog" aria-labelledby="enlargeImageModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">

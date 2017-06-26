@@ -18,4 +18,5 @@ class UserInfo extends Model
     public function user(){
     	$this->belongsTo('App\User');
     }
+   
 }

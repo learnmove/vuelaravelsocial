@@ -18,7 +18,7 @@ class CreateBlogarticleTable extends Migration
             $table->integer('user_id');
             
             $table->string('title');
-            $table->string('article_site')->default(md5(uniqid()));
+            $table->string('article_site')->default(md5(uniqid().rand(1,1000)));
             $table->text('content')->nullable();
             $table->string('secret')->nullable();
             $table->string('image')->nullable();

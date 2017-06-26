@@ -15,34 +15,34 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::group(['prefix'=>'blog'],function(){
 
-	Route::group(['as'=>'blog::'],function(){
-		Route::get('/latest-article', function () {
-	    return view('blog.latest-article');
-	    })->name('latest-article');
-	
+Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
+	Route::get('/latest-article', function () {
+    return view('blog.latest-article');
+    })->name('latest-article');
 
 
 
 
-			Route::get('/{user}','BlogController@getBlog')->name('article-list');
-			Route::get('/{user}/{article_id}','BlogController@getBlogArticle')->name('article');
-// 'BlogController@getBlog' 
 
-				// Route::get('/myblog/article', ['as'=>'article',function () {
-				//     return view('blog.article');
-				// }]);
+		Route::get('/{user}','BlogController@getBlog')->name('article-list');
+		Route::get('/{user}/{article_id}','BlogController@getBlogArticle')->name('article');
+		Route::get('/{user}/{article_id}/decrypt','BlogController@getDecryptArticle')->name('decrypt');
+		// protect Auth
+			Route::group(['middleware'=>'auth'],function(){
 
-
+					Route::post('/{user}/post','BlogArticleController@postArticle')->name('post_article');
 
 			});
+			// 
+		
 
-	// public
+
+		});
+
 
 	
 
-});
 
 // discuss
 Route::group(['prefix'=>'discuss','as'=>'discuss::'],function(){
