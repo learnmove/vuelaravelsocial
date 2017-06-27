@@ -5,6 +5,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use App\Userinfo;
+use Session;
 class LoginController extends Controller
 {
     //
@@ -41,8 +42,9 @@ class LoginController extends Controller
 		$user=Userinfo::find(Auth::user()->id);
 		$user->offline=\Carbon\Carbon::now();
 		$user->save();
+		Session::flush();
 		Auth::logout();
-		return redirect()->route('login');
+		return redirect()->route('index');
 	}
 
 }

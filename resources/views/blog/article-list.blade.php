@@ -101,6 +101,11 @@
                   <label for="post-title">密碼(不設定保持空白)
                   </label>
                   <input type="text" placeholder="中英文都可以" maxlength="16" name="secret" id="" class="post-title form-control"></div>
+                  <div class="form-group">
+                  <label for="post-title">未來發佈(不設定保持空白)
+                  </label>
+                  <input style="color:#989898" type="datetime-local" name="bdaytime"></div>
+                  
                   <button class="btn btn-primary">  送出</button>
                 </form>
               </div>

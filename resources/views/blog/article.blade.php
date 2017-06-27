@@ -5,8 +5,7 @@
 
 @section('article-block')
               <div class="left-side box">
-                
-                @if(!$article->secret|Session::get($article->title)==true|Auth::user()->account==$user)
+                @if(!$article->secret||Session::get($article->title)==true||Auth::check()&&Auth::user()->account==$user)
                    <div class="article border article-preference">
                   <div class="article-top">
                     <div class=" article-title  ">
