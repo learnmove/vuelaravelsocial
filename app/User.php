@@ -56,6 +56,9 @@ class User extends Authenticatable
 
        return $this->visitersOfMine()->orderBy('pivot_created_at','desc')->get()->unique();
     }
+    public function replies(){
+        return $this->hasMany('App\BlogArticleReply');
+    }
 
 
 }

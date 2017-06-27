@@ -60,3 +60,13 @@ $factory->define(App\BlogArticle::class,
         ];
     }
     );
+$factory->define(App\BlogArticleReply::class,
+
+    function(Faker\Generator $faker){
+        return [
+            'content'=>$faker->sentence,
+            'private'=>rand(0,1),
+            'user_id'=>rand(1,15)
+        ];
+    }
+    );

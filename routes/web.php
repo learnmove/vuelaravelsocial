@@ -35,6 +35,12 @@ Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 
 			});
 			// 
+			// reply article
+			Route::post('/{user}/{article_id}/reply','BlogArticleReplyController@postReply')->name('reply');
+
+
+
+			// 
 		Route::get('/',function(){
 			return redirect()->route('blog::latest-article');
 		});

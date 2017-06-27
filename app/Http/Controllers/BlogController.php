@@ -7,14 +7,19 @@ use Illuminate\Http\Request;
 use App\BlogArticle;
 use Auth;
 use Session;
+use Cookie;
+use App\BlogArticleReply;
 class BlogController extends Controller
 {
 
 
     //
+
     public function getBlog($user){
+      
     	$stuff=$this->getBlogStuff($user);
     	$articles=BlogArticle::where('user_id',$stuff['user_id'])->orderBy('created_at','desc')->paginate(5);
+          
 		return view('blog.article-list')->
 		with('blog',$stuff['blog'])->
 		with('user',$user)->
@@ -29,17 +34,24 @@ class BlogController extends Controller
 
         $stuff=$this->getBlogStuff($user);
     	$article=BlogArticle::where('article_site',$article_site)
-    	->where('user_id',$stuff['user_id'])->first()
+    	->first()
     	;
-    	$article->watch_count++;
-    	$article->save();
+        $replies=$this->getArticleReply($article->id);
+
+
+          if(!Cookie::has(md5('visited'.$article_site))){
+       $article->watch_count++;
+            $article->save();
+        Cookie::queue(md5('visited'.$article_site), 'shit', 720);
+}
     		return view('blog.article')->
 		with('blog',$stuff['blog'])->
 		with('user',$user)->
 		with('avatar',$stuff['avatar'])->
 		with('visiters',$stuff['visiters'])->
 		with('article',$article)->
-		with('articles_latest',$stuff['articles_latest'])
+		with('articles_latest',$stuff['articles_latest'])->
+        with('replies',$replies)
 		;
 
 		
@@ -50,7 +62,7 @@ class BlogController extends Controller
     	$article=BlogArticle::find($article_id);
     	$article_site=$article->article_site;
     	if($article->secret==$decrypt){
-    		Session::put($article->title, true);
+    		Session::flash($article->title, true);
     		return redirect()->route('blog::article',['user'=>$user,'article_id'=>$article_site]);
     	}else{
     		return redirect()->back();
@@ -62,6 +74,7 @@ class BlogController extends Controller
 
 
     public function getBlogStuff($user){
+       
     	$useraccount=User::where('account',$user)->first();
     	$visiters=$useraccount->getLatestVisiter();
 
@@ -76,12 +89,22 @@ class BlogController extends Controller
     		$avatar='user.jpg';
     	}
 		$articles_latest=BlogArticle::where('user_id',
-			$user_id)->orderBy('created_at','desc')->select('title','hint','article_site')->take(9)->get();
+			$user_id)->orderBy('created_at','desc')->select('title','hint','article_site')->limit(9)->get();
 
-    	DB::table('blog')->where('user_id',$user_id)->increment('visited_count');
+          if(!Cookie::has(md5('visited'.$user.'blog'))){
+         DB::table('blog')->where('user_id',$user_id)->increment('visited_count');
+        Cookie::queue(md5('visited'.$user.'blog'), 'shit', 720);
+
+    }
+ 
     	$blog=$useraccount->blog;
-
     	return ['blog'=>$blog,'avatar'=>$avatar,'user_id'=>$user_id,'articles_latest'=>$articles_latest,'visiters'=>$visiters];
+    }
+    public function getArticleReply($article_id){
+        $replies=BlogArticleReply::with('user')->where('blog_article_id',$article_id)->get();
+        
+        return $replies;
+
     }
 
 }

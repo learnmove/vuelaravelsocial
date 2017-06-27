@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVisitTable extends Migration
+class CreateBlogArticleReplyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateVisitTable extends Migration
      */
     public function up()
     {
-        Schema::create('visit', function (Blueprint $table) {
-            //
+        Schema::create('blog_article_reply', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('visiter_id');
+            $table->integer('blog_article_id');
+            $table->integer('user_id')->default(0);
+            $table->string('content');
+            $table->boolean('private');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateVisitTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('visit');
+        Schema::dropIfExists('blog_article_reply');
     }
 }

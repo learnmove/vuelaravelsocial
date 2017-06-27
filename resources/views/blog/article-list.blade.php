@@ -18,9 +18,11 @@
                   <div class="article-short-content">
           
                
-                    <img class="content-img" src="{{asset('user/blog_article_image/'.$user.'/'.$article->image)}} 
+                   @if(file_exists(asset('user/blog_article_image/'.$user.'/'.$article->image)))
+                    <img class="content-img" src="{{asset('user/blog_article_image/'.$user.'/'.$article->image)}}
                     ">
-                {{$article->content}}
+                  @endif
+                {!!$article->content!!}
          
                 
                   </div>
@@ -79,7 +81,7 @@
         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-              <form method="post" action="{{route('blog::post_article',[$user])}} ">
+              <form method="post" action="{{route('blog::post_article',[$user])}} " enctype="multipart/form-data">
               {{csrf_field()}}
                 <div class="form-group">
                   <label for="post-title">日記標題

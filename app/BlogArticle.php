@@ -21,7 +21,9 @@ class BlogArticle extends Model
            'status'
     ];
     public function user(){
-    	$this->belongsTo('App\User');
+     return	$this->belongsTo('App\User');
     }
-
+    public function replies(){
+     return  $this->hasMany('App\BlogArticleReply');
+    }
 }
