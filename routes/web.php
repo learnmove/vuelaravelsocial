@@ -35,7 +35,9 @@ Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 
 			});
 			// 
-		
+		Route::get('/',function(){
+			return redirect()->route('blog::latest-article');
+		});
 
 
 		});

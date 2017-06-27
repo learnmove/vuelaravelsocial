@@ -20,6 +20,7 @@ class BlogController extends Controller
 		with('user',$user)->
 		with('avatar',$stuff['avatar'])->
 		with('articles',$articles)->
+		with('visiters',$stuff['visiters'])->
 		with('articles_latest',$stuff['articles_latest']);
 		;
     }
@@ -36,6 +37,7 @@ class BlogController extends Controller
 		with('blog',$stuff['blog'])->
 		with('user',$user)->
 		with('avatar',$stuff['avatar'])->
+		with('visiters',$stuff['visiters'])->
 		with('article',$article)->
 		with('articles_latest',$stuff['articles_latest'])
 		;
@@ -61,7 +63,12 @@ class BlogController extends Controller
 
     public function getBlogStuff($user){
     	$useraccount=User::where('account',$user)->first();
+    	$visiters=$useraccount->getLatestVisiter();
+
     	$user_id=$useraccount->id;
+         if(Auth::check()&&$user_id!=Auth::user()->id){
+            $useraccount->visitersOfMine()->attach(Auth::user()->id);
+        }
     	if($useraccount->avatar){
 
     		$avatar=$useraccount->avatar;
@@ -69,11 +76,12 @@ class BlogController extends Controller
     		$avatar='user.jpg';
     	}
 		$articles_latest=BlogArticle::where('user_id',
-			$user_id)->orderBy('created_at','desc')->take(11)->pluck('title','article_site');
+			$user_id)->orderBy('created_at','desc')->select('title','hint','article_site')->take(9)->get();
+
     	DB::table('blog')->where('user_id',$user_id)->increment('visited_count');
     	$blog=$useraccount->blog;
 
-    	return ['blog'=>$blog,'avatar'=>$avatar,'user_id'=>$user_id,'articles_latest'=>$articles_latest];
+    	return ['blog'=>$blog,'avatar'=>$avatar,'user_id'=>$user_id,'articles_latest'=>$articles_latest,'visiters'=>$visiters];
     }
 
 }

@@ -43,7 +43,7 @@
             </div>
             <div class="form-group" >
             <label for="usr">學校/公司</label>
-            <input  type="text" maxlength="30" value="{{old('company')}} "  placeholder="國立高雄應用科技大學|雄獅旅遊Lion Travel" class="form-control" maxlength="20" name="company">
+            <input  type="text" maxlength="30" value="{{old('company')}}"  placeholder="國立高雄應用科技大學|雄獅旅遊Lion Travel" class="form-control" maxlength="20" name="company">
             </div>
           <div class="form-group" >
             <label for="usr">年紀</label>

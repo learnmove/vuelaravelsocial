@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -47,4 +47,15 @@ class User extends Authenticatable
     public function blog_article(){
         return $this->hasMany('App\BlogArticle');
     }
+    public function visitersOfMine(){
+
+
+         return   $this->belongsToMany('App\User','visit','user_id','visiter_id')->withPivot('created_at','visiter_id','id')->limit(30);
+    }
+    public function getLatestVisiter(){
+
+       return $this->visitersOfMine()->orderBy('pivot_created_at','desc')->get()->unique();
+    }
+
+
 }

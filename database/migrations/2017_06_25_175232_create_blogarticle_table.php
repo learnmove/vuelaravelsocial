@@ -27,7 +27,6 @@ class CreateBlogarticleTable extends Migration
             $table->boolean('status')->default('1');
             $table->string('hint')->nullable();
             $table->timestamps();
-            $table->index(['article_site', 'user_id']);
 
 
             //

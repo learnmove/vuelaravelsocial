@@ -35,7 +35,6 @@
                 <div class="block-background user-info-block border">
                   <div class="top-tab-preference account links-top-background">
                     {{$user}}'s home
-
                   </div>
                   
                   <div class="avatar">
@@ -57,9 +56,14 @@
                   </div>
                   <div class="recent-article-title">
                     <ul>
-                      @foreach($articles_latest as $key=>$value)
-                      <li><a href="{{route('blog::article',[$user,$key])}} ">
-  {{$value}}
+
+                      @foreach($articles_latest as $article_latest)
+                      <li><a href="{{route('blog::article',[$user,$article_latest->article_site])}} ">
+                        @if($article_latest->hint)
+                      <i class="fa fa-lock" style="color:yellow;" aria-hidden="true"></i>
+
+                        @endif
+                          {{$article_latest->title}}
                       </a>
                       </li>
                     @endforeach
@@ -84,33 +88,17 @@
                   </div>
                   <div class="who-come-grid">
                     <ul>
+                              @foreach($visiters as $visiter)
+                     
                       <li>
-                        <img class="img-circle" src="https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/17626447_1452973721391230_1381565239478675306_n.jpg?oh=c15dd6e06572cf92bb757a4e15e845a6&oe=59C9BEEE"  >
+                      <a href="{{route('blog::article-list',['user'=>$visiter->account])}} ">
+                        
+                        <img class="img-circle" src="{{asset('user/avatars/'.$visiter->avatar)}} "  >
+
+                      </a>
                       </li>
-                      <li>
-                        <img class="img-circle" src="https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/18199268_1866004786994086_4490798884680127052_n.jpg?oh=dda32eabbfb049ed115211e503870348&oe=599BB26F"  >
-                      </li>
-                      <li>
-                        <img class="img-circle" src="https://web.archive.org/web/20130513032753im_/http://l.yimg.com/e/cover/els718620_60.jpg?16"  >
-                      </li>
-                      <li>
-                        <img class="img-circle" src="https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/14184568_1110549169035631_23306978654507606_n.jpg?oh=f132424f61fde3648aa47a287c52b2f4&oe=59E9F754"  >
-                      </li>
-                      <li>
-                        <img class="img-circle" src="https://web.archive.org/web/20130513032753im_/http://l.yimg.com/e/cover/els718620_60.jpg?16"  >
-                      </li>
-                      <li>
-                        <img class="img-circle" src="https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/5999_419906794757526_386435983_n.jpg?oh=08ad35578ef7f02f31d123cf50642c88&oe=59DAA20F"  >
-                      </li>
-                      <li>
-                        <img class="img-circle" src="https://web.archive.org/web/20130513032753im_/http://l.yimg.com/e/cover/els718620_60.jpg?16"  >
-                      </li>
-                      <li>
-                        <img class="img-circle" src="https://web.archive.org/web/20130513032753im_/http://l.yimg.com/e/cover/els718620_60.jpg?16"  >
-                      </li>
-                      <li>
-                        <img class="img-circle" src="https://web.archive.org/web/20130513032753im_/http://l.yimg.com/e/cover/els718620_60.jpg?16"  >
-                      </li>
+                      @endforeach  
+                      
                     </ul>
                   </div>
                 </div>

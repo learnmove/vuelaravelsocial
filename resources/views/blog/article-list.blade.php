@@ -21,10 +21,10 @@
                     <img class="content-img" src="{{asset('user/blog_article_image/'.$user.'/'.$article->image)}} 
                     ">
                 {{$article->content}}
-
+         
+                
                   </div>
                   <a class="readmore" href="  {{route('blog::article',[$user,$article->article_site   ])}}">(More......)</a>
-                  
                   <div class="post-info">
                     <span class="post-time">06:16 AM</span>
                     <span class="reply-count">Reply(37)</span>
@@ -37,7 +37,8 @@
                   <div class="article-top">
 
                     <div class=" article-title  ">  
-                        {{$article->title}}</a>
+                              <i class="fa fa-lock" style="color:yellow;" aria-hidden="true"></i>
+{{$article->title}}</a>
                     </div>
                     <div class="date">{{$article->created_at->format('Y-m-d')}}</div>
                   </div>
@@ -59,7 +60,10 @@
                   
                   <div class="post-info">
                     <span class="post-time">06:16 AM</span>
-                    <span class="reply-count">Reply(37)</span>
+                    <span class="reply-count">Reply(37)
+
+                  
+                    </span>
                     <i class="fa fa-eye" aria-hidden="true"></i>
                     <span class="photo-watch-count">{{$article->watch_count}}</span>
                   </div>
