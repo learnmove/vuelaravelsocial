@@ -17,13 +17,13 @@ class CreateBlogTable extends Migration
             //
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('blog_title')->default('myblog');
-            $table->string('banner')->default('https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/17362562_1439964182692184_1634433238124984600_n.jpg?oh=9c0d2080b0e2a971f200a4ab6bc776cb&oe=59C772A5');
-            $table->string('css')->default('yellow');
-            $table->string('music')->default('https://ia600502.us.archive.org/33/items/03YoungAndBeautiful/03%20Young%20and%20Beautiful.mp3');
-            $table->string('music_name')->default('Lana Del Rey-young and beautifyl');
-            $table->string('banner_title')->default('我的部落格');
-            $table->string('banner_text')->default('歡迎');
+            $table->string('blog_title')->default('myblog')->nullable();
+            $table->string('banner')->default('https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/17362562_1439964182692184_1634433238124984600_n.jpg?oh=9c0d2080b0e2a971f200a4ab6bc776cb&oe=59C772A5')->nullable();
+            $table->string('css')->default('yellow')->nullable();
+            $table->string('music')->default('https://ia600502.us.archive.org/33/items/03YoungAndBeautiful/03%20Young%20and%20Beautiful.mp3')->nullable();
+            $table->string('music_name')->default('Lana Del Rey-young and beautifyl')->nullable();
+            $table->string('banner_title')->default('我的部落格')->nullable();
+            $table->string('banner_text')->default('歡迎')->nullable();
             $table->boolean('status')->default('1');
             $table->integer('visited_count')->default('0');
             $table->timestamps();

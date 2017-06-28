@@ -21,23 +21,26 @@ Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
     return view('blog.latest-article');
     })->name('latest-article');
 
+// protect Auth
+			Route::group(['middleware'=>'auth'],function(){
 
+					Route::post('/{user}/post','BlogArticleController@postArticle')->name('post_article');
+			// style blog
+					Route::get('{user}/custom','BlogController@getChangeBlogStyle');
+				Route::post('{user}/custom','BlogController@postChangeBlogStyle')
+					->name('custom-edit');
+			});
 
 
 
 		Route::get('/{user}','BlogController@getBlog')->name('article-list');
 		Route::get('/{user}/{article_id}','BlogController@getBlogArticle')->name('article');
 		Route::get('/{user}/{article_id}/decrypt','BlogController@getDecryptArticle')->name('decrypt');
-		// protect Auth
-			Route::group(['middleware'=>'auth'],function(){
 
-					Route::post('/{user}/post','BlogArticleController@postArticle')->name('post_article');
 
-			});
 			// 
 			// reply article
 			Route::post('/{user}/{article_id}/reply','BlogArticleReplyController@postReply')->name('reply');
-
 
 
 			// 

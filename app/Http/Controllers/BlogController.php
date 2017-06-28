@@ -8,6 +8,7 @@ use App\BlogArticle;
 use Auth;
 use Session;
 use Cookie;
+use App\Blog;
 use App\BlogArticleReply;
 class BlogController extends Controller
 {
@@ -26,7 +27,8 @@ class BlogController extends Controller
 		with('avatar',$stuff['avatar'])->
 		with('articles',$articles)->
 		with('visiters',$stuff['visiters'])->
-		with('articles_latest',$stuff['articles_latest']);
+		with('articles_latest',$stuff['articles_latest'])->
+        with('recent_replies',$stuff['recent_replies']);
 		;
     }
     public function getBlogArticle($user,$article_site){
@@ -51,8 +53,9 @@ class BlogController extends Controller
 		with('visiters',$stuff['visiters'])->
 		with('article',$article)->
 		with('articles_latest',$stuff['articles_latest'])->
-        with('replies',$replies)
-		;
+        with('replies',$replies)->
+        with('recent_replies',$stuff['recent_replies']);
+
 
 		
     
@@ -74,7 +77,7 @@ class BlogController extends Controller
 
 
     public function getBlogStuff($user){
-       
+        $recent_replies=$this->getRecenetReply();
     	$useraccount=User::where('account',$user)->first();
     	$visiters=$useraccount->getLatestVisiter();
 
@@ -98,7 +101,7 @@ class BlogController extends Controller
     }
  
     	$blog=$useraccount->blog;
-    	return ['blog'=>$blog,'avatar'=>$avatar,'user_id'=>$user_id,'articles_latest'=>$articles_latest,'visiters'=>$visiters];
+    	return ['blog'=>$blog,'avatar'=>$avatar,'user_id'=>$user_id,'articles_latest'=>$articles_latest,'visiters'=>$visiters,'recent_replies'=>$recent_replies];
     }
     public function getArticleReply($article_id){
         $replies=BlogArticleReply::with('user')->where('blog_article_id',$article_id)->get();
@@ -106,5 +109,20 @@ class BlogController extends Controller
         return $replies;
 
     }
+    public function getRecenetReply(){
+        return   $recent_replies=BlogArticleReply::with(['user','article'])->orderBy('created_at','desc')->limit('9')->get();
+    }
 
+
+
+    public function getChangeBlogStyle(){
+        return view('blog.styleblog');
+    }
+     public function postChangeBlogStyle(Request $rq){
+        $user=Auth::user();
+        $blog=Blog::find($user->id);
+        $blog->update($rq->all());
+       return redirect()->bakc();
+
+}
 }

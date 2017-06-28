@@ -74,13 +74,17 @@
                   <div class="top-tab-preference recent-comments-top links-top-background">
                     Recent comment
                   </div>
+
+                  @foreach($recent_replies as $recent_replies)
                   <div class="comment-item">
-                    <a href="#" class="comment-article-title">Re: 勇氣十足的苗栗煙火慶雙十</a>
+                    <a href="{{route('blog::article',['user'=>$user,'article_site'=>$recent_replies->article->article_site])}} " class="comment-article-title">{{$recent_replies->article->title}}</a>
                     <div class="comment-user-block">
                       <span>  , by</span>
-                      <span class="comment-user">ealed</span>
+                      <span class="comment-user">{{$recent_replies->user->designer}}</span>
                     </div>
                   </div>
+                  @endforeach
+
                 </div>
                 <div class="block-background who-come-block border">
                   <div class="top-tab-preference who-come-top links-top-background">

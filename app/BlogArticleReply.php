@@ -8,8 +8,9 @@ class BlogArticleReply extends Model
 {
     //
     protected $table='blog_article_reply';
-    protected $fillable=['content','private'];
+    protected $fillable=['content','private','blog_article_id','user_id'];
     public $timestamps=true;
+
     public function article(){
       return $this->belongsTo('App\BlogArticle','blog_article_id','id');
     }

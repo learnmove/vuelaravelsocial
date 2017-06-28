@@ -56,13 +56,13 @@
   
   @endif
 </div>
-@if(!$article->secret|Session::get($article->title)==true)
+@if(!$article->secret||Session::get($article->title)==true)
 <div class="article-comment-block article-preference">
   <div class="article-commnet-items">
   @foreach($replies as $reply)
     <div class="article-commnet-item">
       <div class="article-commnet-avatar">
-      <a href="">
+      <a href="{{route('blog::article-list',['user'=>$reply->user->account])}}">
         <img class="img-circle" src="{{asset('user/avatars/'.$reply->user->avatar)}} ">
       </a>
         
@@ -93,7 +93,8 @@
 <div class="modal fade reply-target" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <form>
+      <form method="post" action="{{route('blog::reply',['user'=>$user,'article_id'=>$article->id])}} ">
+      {{csrf_field()}}
         <div class="form-group">
           <label for="comment"><i class="fa fa-heart" aria-hidden="true"></i>
           關心他/她</label>
@@ -104,8 +105,8 @@
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value=""><i class="fa fa-heartbeat" style="color:red;" aria-hidden="true"></i>
-屬於我與你/妳的秘密
+            <input type="checkbox" name="private" checked="false"><i class="fa fa-heartbeat" style="color:red;" aria-hidden="true"></i>
+屬於你與他/她的秘密
           </label>
         </div>
         <button class="btn btn-primary">  送出</button>
