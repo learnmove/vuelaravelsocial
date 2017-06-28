@@ -9,7 +9,7 @@
                   <div class="article-top">
 
                     <div class=" article-title  ">  
-                        <a class="article-title" style="text-decoration: none;" href="
+                        <a  href="
                    {{route('blog::article',[$user,$article->article_site   ])}}
                         ">{{$article->title}}</a>
                     </div>

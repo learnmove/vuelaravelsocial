@@ -26,7 +26,9 @@ Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 
 					Route::post('/{user}/post','BlogArticleController@postArticle')->name('post_article');
 			// style blog
-					Route::get('{user}/custom','BlogController@getChangeBlogStyle');
+					Route::get('{user}/custom','BlogController@getChangeBlogStyle')
+					->name('custom-get')
+					;
 				Route::post('{user}/custom','BlogController@postChangeBlogStyle')
 					->name('custom-edit');
 			});

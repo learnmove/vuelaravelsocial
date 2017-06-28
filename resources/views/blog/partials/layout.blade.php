@@ -5,7 +5,7 @@
 @section('css')
    <link rel="stylesheet" type="text/css" href="{{asset('css/myblog.css?v='.rand())}}">
    @if($blog->css!=$user)
-   <link rel="stylesheet" type="text/css" href="{{asset('css/blog/office/dark2/custom-blog.css')}}">
+   <link rel="stylesheet" type="text/css" href="{{asset('css/blog/office/'.$blog->css.'/custom-blog.css')}}">
    @else
    <link rel="stylesheet" type="text/css" href="{{asset('user/css/'.$user.'/custom-blog.css')}}">
    @endif
@@ -15,6 +15,7 @@
       <!-- blog-content -->
 @section('content')
       <div class="self-container all-preference">
+
         <div class="jumbotron jumbotron-preference">
           <img class="self-banner" src="{{asset('user/banners/abcdefg.jpg')}} ">
           <div class="jumbotron-text">
@@ -24,9 +25,13 @@
           </div>
         
         </div>
+
         <div class="bottom-background">
+
           <div class="content-block">
+
             <div class="article-block  ">
+                 <a href="{{route('blog::custom-get',['user',$user])}} " class="btn btn-primary">更改部落格樣式 </a>
               @yield('article-block')
             </div>
             <div class="links-block">
@@ -116,7 +121,7 @@
                 </div>
                 <div class="mp3-block">
                 <marquee class="marquee-mp3" behavior=" " direction="">
-                  胡歌-一吻天荒
+                  {{$blog->music_name}}
                 </marquee>
                   <audio id="mp3-player"  autoplay loop controls >
                     <source src="{{$blog->music}}" type="audio/mpeg">

@@ -122,7 +122,7 @@ class BlogController extends Controller
         $user=Auth::user();
         $blog=Blog::find($user->id);
         $blog->update($rq->all());
-       return redirect()->bakc();
+       return redirect()->route('blog::article-list',['user'=>$user->account]);
 
 }
 }

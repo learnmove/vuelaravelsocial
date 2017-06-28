@@ -15,10 +15,12 @@ class Blog extends Model
 'banner',
 'css',
 'music',
+'music_name',
 'banner_title',
 'blog_title',
 'banner_text',
 'status',
+
 
     ];
 
