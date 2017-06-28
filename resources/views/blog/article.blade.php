@@ -21,7 +21,7 @@
     </div>
     <div class="post-info">
       <span class="post-time">{{$article->created_at->format('g:i A')}}</span>
-      <span class="reply-count">Reply(37)</span>
+      <span class="reply-count">Reply({{count($replies)}})</span>
       <i class="fa fa-eye" aria-hidden="true"></i>
       <span class="photo-watch-count">{{$article->watch_count}}</span>
     </div>
@@ -47,7 +47,7 @@
     </div>
     <div class="post-info">
       <span class="post-time">{{$article->created_at->format('g:i A')}}</span>
-      <span class="reply-count">Reply(37)</span>
+      <span class="reply-count">Reply({{count($replies)}} )</span>
       <i class="fa fa-eye" aria-hidden="true"></i>
       <span class="photo-watch-count">{{$article->watch_count}}</span>
     </div>

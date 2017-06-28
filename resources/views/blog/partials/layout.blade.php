@@ -31,7 +31,18 @@
           <div class="content-block">
 
             <div class="article-block  ">
-                 <a href="{{route('blog::custom-get',['user',$user])}} " class="btn btn-primary">更改部落格樣式 </a>
+               @if(Session::has('errors'))
+            <div class="alert alert-danger">
+              <ul>
+                @foreach($errors->all() as $error)
+                <li>{{$error}} </li>
+                @endforeach
+              </ul>
+            </div>
+            @endif
+            @if(Auth::check()&&$user==Auth::user()->account)
+                 <a href="{{route('blog::custom-get',['user'=>$user])}} " class="btn btn-primary">更改部落格樣式 </a>
+                 @endif
               @yield('article-block')
             </div>
             <div class="links-block">
@@ -80,7 +91,7 @@
                     Recent comment
                   </div>
 
-                  @foreach($recent_replies as $recent_replies)
+                  @forelse($recent_replies as $recent_replies)
                   <div class="comment-item">
                     <a href="{{route('blog::article',['user'=>$user,'article_site'=>$recent_replies->article->article_site])}} " class="comment-article-title">{{$recent_replies->article->title}}</a>
                     <div class="comment-user-block">
@@ -88,9 +99,12 @@
                       <span class="comment-user">{{$recent_replies->user->designer}}</span>
                     </div>
                   </div>
+
                   @endforeach
 
                 </div>
+
+                
                 <div class="block-background who-come-block border">
                   <div class="top-tab-preference who-come-top links-top-background">
                     誰來我家

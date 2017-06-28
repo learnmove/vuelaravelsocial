@@ -39,9 +39,9 @@ class LoginController extends Controller
 	}
 
 	public function logout(){
-		$user=Userinfo::find(Auth::user()->id);
-		$user->offline=\Carbon\Carbon::now();
-		$user->save();
+		$userinfo=Userinfo::where('user_id',Auth::user()->id)->first();
+		$userinfo->offline=\Carbon\Carbon::now();
+		$userinfo->save();
 		Session::flush();
 		Auth::logout();
 		return redirect()->route('index');

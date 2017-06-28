@@ -29,7 +29,7 @@
                   <a class="readmore" href="  {{route('blog::article',[$user,$article->article_site   ])}}">(More......)</a>
                   <div class="post-info">
                     <span class="post-time">06:16 AM</span>
-                    <span class="reply-count">Reply(37)</span>
+                    <span class="reply-count">回覆({{count($article->replies)}} )</span>
                     <i class="fa fa-eye" aria-hidden="true"></i>
                     <span class="photo-watch-count">{{$article->watch_count}}</span>
                   </div>
@@ -86,14 +86,14 @@
                 <div class="form-group">
                   <label for="post-title">日記標題
                   </label>
-                  <input type="text"  placeholder="標題16個字以內" maxlength="16" name="title" id="" class="post-title form-control"></div>
+                  <input type="text"  placeholder="標題16個字以內" maxlength="16" name="title" id="" class="post-title form-control" value="{{old('title')}}"></div>
                   
                   <div class="form-group">
                     <label for="comment">日記內容</label>
                     <textarea class="my-textarea"  maxlength="2000" 
                     style="color:#989898"
                     placeholder="內容2000個字以內"
-                    name="content" rows="" id="comment"  wrap="hard"></textarea>
+                    name="content" rows="" id="comment"  wrap="hard">{{old('content')}}</textarea>
                     <!-- cols="23" -->
                   </div>
                   <img src="  " id="img-upload">
@@ -102,11 +102,11 @@
                    <div class="form-group">
                   <label for="post-title">密碼提示：(不設定保持空白)
                   </label>
-                  <input type="text" placeholder="如果你要設定給某人看給他提示" maxlength="16" name="hint" id="" class="post-title form-control"></div>
+                  <input type="text" placeholder="如果你要設定給某人看給他提示" maxlength="16" name="hint" id="" class="post-title form-control" value="{{old('hint')}}"></div>
                    <div class="form-group">
                   <label for="post-title">密碼(不設定保持空白)
                   </label>
-                  <input type="text" placeholder="中英文都可以" maxlength="16" name="secret" id="" class="post-title form-control"></div>
+                  <input type="text" placeholder="中英文都可以" maxlength="16" name="secret" id="" class="post-title form-control" value="{{old('secret')}}"></div>
                   <div class="form-group">
                   <label for="post-title">未來發佈(不設定保持空白)
                   </label>

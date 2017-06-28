@@ -20,7 +20,7 @@ class BlogController extends Controller
       
     	$stuff=$this->getBlogStuff($user);
     	$articles=BlogArticle::where('user_id',$stuff['user_id'])->orderBy('created_at','desc')->paginate(5);
-          
+
 		return view('blog.article-list')->
 		with('blog',$stuff['blog'])->
 		with('user',$user)->
@@ -38,7 +38,7 @@ class BlogController extends Controller
     	$article=BlogArticle::where('article_site',$article_site)
     	->first()
     	;
-        $replies=$this->getArticleReply($article->id);
+        $replies= $this->getArticleReply($article->id)->reverse();
 
 
           if(!Cookie::has(md5('visited'.$article_site))){
@@ -77,11 +77,16 @@ class BlogController extends Controller
 
 
     public function getBlogStuff($user){
-        $recent_replies=$this->getRecenetReply();
+
+
+
+        
     	$useraccount=User::where('account',$user)->first();
+
     	$visiters=$useraccount->getLatestVisiter();
 
     	$user_id=$useraccount->id;
+    $recent_replies=$this->getRecenetReply($user_id);
          if(Auth::check()&&$user_id!=Auth::user()->id){
             $useraccount->visitersOfMine()->attach(Auth::user()->id);
         }
@@ -105,13 +110,16 @@ class BlogController extends Controller
     }
     public function getArticleReply($article_id){
         $replies=BlogArticleReply::with('user')->where('blog_article_id',$article_id)->get();
-        
+
         return $replies;
 
     }
-    public function getRecenetReply(){
-        return   $recent_replies=BlogArticleReply::with(['user','article'])->orderBy('created_at','desc')->limit('9')->get();
+    public function getRecenetReply($user_id){
+
+        return   $recent_replies=BlogArticleReply::with(['user','article'])->where('blog_user_id',$user_id)->orderBy('created_at','desc')->limit('9')->get();
+
     }
+
 
 
 
@@ -120,8 +128,8 @@ class BlogController extends Controller
     }
      public function postChangeBlogStyle(Request $rq){
         $user=Auth::user();
-        $blog=Blog::find($user->id);
-        $blog->update($rq->all());
+        $blog=Blog::where('user_id',$user->id);
+        $blog->update($rq->except('_token'));
        return redirect()->route('blog::article-list',['user'=>$user->account]);
 
 }

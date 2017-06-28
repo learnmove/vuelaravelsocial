@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Image;
 use Auth;
 use App\UserInfo;
+use App\Blog;
+use App\BlogArticle;
 class RegisterController extends Controller
 {
     //
@@ -14,7 +16,8 @@ class RegisterController extends Controller
 	}
 	public function PostRegister(Request $rq){
 		// $this->customValidate($rq);
-
+			$user=$rq->except('avatar');
+			$user['password']=bcrypt($rq->input('password'));
 		if ($rq->hasFile('avatar')) {
 			$avatar=$rq->file('avatar');
 			$filename=$rq->account.'.'.$avatar->getClientOriginalExtension();
@@ -24,20 +27,23 @@ class RegisterController extends Controller
 			Image::make($avatar)->resize(315,null, function ($constraint) {
     $constraint->aspectRatio();
 })->save( public_path('/user/origin-avatars/'.$filename ));
-			$user=$rq->except('avatar');
 			$user['avatar']=$filename;
-			User::create($user);
-			$user=User::where('username',$rq->username)->first();
-			$userinfo=new Userinfo(['online'=>\Carbon\Carbon::now(),'ip'=>$rq->ip()]);
-			$user->userinfo()->save($userinfo);
 
-			Auth::login($user);	
-			return redirect()->route('index');
 
 			// $user->avatar=$filename;
 			// $user->save();
 			# code...
 		}
+			$user=User::create($user);
+	
+			$userinfo=new Userinfo(['online'=>\Carbon\Carbon::now(),'ip'=>$rq->ip()]);
+			$user->userinfo()->save($userinfo);
+			$blog=new Blog(['user_id'=>$user->id]);
+			$blog->save();
+
+
+			Auth::login($user);	
+			return redirect()->route('index');
 	}
 
 

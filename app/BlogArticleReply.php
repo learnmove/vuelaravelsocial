@@ -3,12 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
 class BlogArticleReply extends Model
 {
     //
     protected $table='blog_article_reply';
-    protected $fillable=['content','private','blog_article_id','user_id'];
+    protected $fillable=['content','private','blog_user_id','blog_article_id','user_id'];
     public $timestamps=true;
 
     public function article(){

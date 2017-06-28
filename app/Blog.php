@@ -26,8 +26,10 @@ class Blog extends Model
 
 
     public function user(){
-    	$this->belongsTo('App\User');
+    	$this->belongsTo('App\User','user_id','id');
     }
 
-
+    public function article(){
+    	$this->hasMany('App\BlogArticle');
+    }
 }

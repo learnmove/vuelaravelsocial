@@ -5,7 +5,7 @@
         <!-- content -->
 @section('content')
         <div class="container"> 
-        <form action="{{route('blog::custom-edit',['user',Auth::user()->account])}}" method="post" >
+        <form action="{{route('blog::custom-edit',['user'=>Auth::user()->account])}}" method="post" >
         {{csrf_field()}}
            <div class="banner">
           <div class="form-group">
@@ -18,14 +18,14 @@
           </div>
              <div class="form-group">
             <label>日記敘述</label>
-            <input type="text" name="banner-text" id="" class="form-control" placeholder="不能說的都在這邊說" >
+            <input type="text" name="banner_text" id="" class="form-control" placeholder="不能說的都在這邊說" >
           </div>
         </div>
 
           <div class="banner">
           <div class="form-group">
             <label>網站名稱</label>
-            <input type="text" name="title" id="" class="form-control" placeholder="心事小窩" >
+            <input type="text" name="blog_title" id="" class="form-control" placeholder="心事小窩" >
           </div>
 
         </div>
@@ -50,7 +50,7 @@
            <option value="black-border">硬條黑</option>
            <option value="coffee">咖哩色</option>
            <option value="chung2">中二</option>
-           <option value="coffee">咖啡色</option>
+           <option value="coffee2">咖啡色</option>
            <option value="coffee-orange">橘子咖啡</option>
            <option value="colour">彩虹天堂</option>
            <option value="dark">木炭黑</option>

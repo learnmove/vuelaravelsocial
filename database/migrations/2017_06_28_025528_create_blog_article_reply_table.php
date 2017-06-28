@@ -15,8 +15,10 @@ class CreateBlogArticleReplyTable extends Migration
     {
         Schema::create('blog_article_reply', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('blog_user_id');
             $table->integer('blog_article_id');
             $table->integer('user_id')->default(0);
+
             $table->string('content');
             $table->boolean('private');
             $table->timestamps();
