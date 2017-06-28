@@ -33,7 +33,6 @@ class BlogController extends Controller
     }
     public function getBlogArticle($user,$article_site){
 
-
         $stuff=$this->getBlogStuff($user);
     	$article=BlogArticle::where('article_site',$article_site)
     	->first()
@@ -84,8 +83,8 @@ class BlogController extends Controller
     	$useraccount=User::where('account',$user)->first();
 
     	$visiters=$useraccount->getLatestVisiter();
-
     	$user_id=$useraccount->id;
+
     $recent_replies=$this->getRecenetReply($user_id);
          if(Auth::check()&&$user_id!=Auth::user()->id){
             $useraccount->visitersOfMine()->attach(Auth::user()->id);

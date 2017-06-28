@@ -17,35 +17,32 @@ Route::get('/', function () {
 
 
 Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
-	Route::get('/latest-article', function () {
-    return view('blog.latest-article');
-    })->name('latest-article');
+		
 
 // protect Auth
-			Route::group(['middleware'=>'auth'],function(){
+		Route::group(['middleware'=>'auth'],function(){
 
-					Route::post('/{user}/post','BlogArticleController@postArticle')->name('post_article');
-			// style blog
-					Route::get('{user}/custom','BlogController@getChangeBlogStyle')
-					->name('custom-get')
-					;
-				Route::post('{user}/custom','BlogController@postChangeBlogStyle')
-					->name('custom-edit');
-			});
+				Route::post('/{user}/post','BlogArticleController@postArticle')->name('post_article');
+		// style blog
+				Route::get('{user}/custom','BlogController@getChangeBlogStyle')
+				->name('custom-get')
+				;
+			Route::post('{user}/custom','BlogController@postChangeBlogStyle')
+				->name('custom-edit');
+		});
 
 
-
+		Route::get('/latest-article', 'BlogArticleController@getLatestArticle')->name('latest-article');
 		Route::get('/{user}','BlogController@getBlog')->name('article-list');
-		Route::get('/{user}/{article_id}','BlogController@getBlogArticle')->name('article');
+		Route::get('/{user}/{article_site}','BlogController@getBlogArticle')->name('article');
 		Route::get('/{user}/{article_id}/decrypt','BlogController@getDecryptArticle')->name('decrypt');
 
 
-			// 
 			// reply article
 			Route::post('/{user}/{article_id}/reply','BlogArticleReplyController@postReply')->name('reply');
 
 
-			// 
+			// latest-art
 		Route::get('/',function(){
 			return redirect()->route('blog::latest-article');
 		});

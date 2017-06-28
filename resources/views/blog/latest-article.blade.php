@@ -36,7 +36,7 @@
 
 
             <img src="{{asset('image/hot.png')}}" style="width:30px;height:30px;">
-              本週熱門日記
+              本日熱門日記
             </div>
             <div class="hotest-article-block">
               <div class="hot-box">
@@ -96,123 +96,35 @@
           
             最新日記
           </div>
-          <ul class="pagination">
-  <li><a href="#">1</a></li>
-  <li><a href="#">2</a></li>
-  <li><a href="#">3</a></li>
-  <li><a href="#">4</a></li>
-  <li><a href="#">5</a></li>
-</ul>
+        {{$articles->links()}}
            <div class="latest-article-block hotest-article-block">
-              <div class="hot-box">
-                <div class="hot-user-info">
-                  <div class="hot-avatar">
-                    <img class="" src="{{asset('user/origin-avatars/dddd.jpg')}} ">
-                  </div>
-                  <div class="hot-user-account">  tzarevitch</div>
-                  <div class="hot-user-name"> 小美冰淇淋</div>
-                  <div class="hot-user-article-title"> 為何外國人就生氣了</div>
-                  <div class="hot-user-article-degree-block">
-                    人氣值
-                    <span class="degree">33</span>
-                  </div>
-                </div>
-              </div>
-              <div class="hot-box">
-                <div class="hot-user-info">
-                  <div class="hot-avatar">
-                    <img class="" src="{{asset('user/origin-avatars/abcd.jpg')}}">
-                  </div>
-                  <div class="hot-user-account">  tzarevitch</div>
-                  <div class="hot-user-name"> 小美冰淇淋</div>
-                  <div class="hot-user-article-title"> 為何外國人就生為何外國人就生氣了氣了</div>
-                  <div class="hot-user-article-degree-block">
-                    人氣值
-                    <span class="degree">33</span>
-                  </div>
-                </div>
-              </div>
-               <div class="hot-box">
+
+           @foreach($articles as $article)
+                      <div class="hot-box">
               <div class="hot-user-info">
                 <div class="hot-avatar">
-                  <img class="" src="https://web.archive.org/web/20120518083318im_/http://st.aio.com.tw/photo/ai00194258_KT2qugcqUE.jpg">
+                <a href="{{route('blog::article',['user'=>$article->user->account,'article_site'=>$article->article_site])}} ">
+                  
+ <img class="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJpVMhGuzhv8MXtrcT4cJtTs-jZ57X-h6FEcaATPVQN3rCiUwZA">
+                  
+                </a>
+                 
                 </div>
-                <div class="hot-user-account">  tzarevitch</div>
-                <div class="hot-user-name"> 小美冰淇淋</div>
-                <div class="hot-user-article-title"> 為何外國人就生氣了</div>
+                <div class="hot-user-account"> 
+                {{$article->user->account}}
+                 </div>
+                <div class="hot-user-name"> {{$article->user->designer}}</div>
+                <div class="hot-user-article-title"> {{$article->title}}</div>
                 <div class="hot-user-article-degree-block">
                   人氣值
-                  <span class="degree">33</span>
+                  <span class="degree">{{$article->watch_count}}</span>
                 </div>
               </div>
             </div>
-                 <div class="hot-box">
-              <div class="hot-user-info">
-                <div class="hot-avatar">
-                  <img class="" src="https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/10968345_932211060132205_8070272856367345994_n.jpg?oh=86c989821e19db0bc9467ab0dc24fbde&oe=59C73E60">
-                </div>
-                <div class="hot-user-account">  tzarevitch</div>
-                <div class="hot-user-name"> 小美冰淇淋</div>
-                <div class="hot-user-article-title"> 為何外國人就生氣了</div>
-                <div class="hot-user-article-degree-block">
-                  人氣值
-                  <span class="degree">33</span>
-                </div>
-              </div>
-            </div>
-                             <div class="hot-box">
-              <div class="hot-user-info">
-                <div class="hot-avatar">
-                  <img class="" src="https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/10313471_1429681537293082_5471867040777899136_n.jpg?oh=2215690e57a909ea7c46459767e94028&oe=59D29A00">
-                </div>
-                <div class="hot-user-account">  tzarevitch</div>
-                <div class="hot-user-name"> 小美冰淇淋</div>
-                <div class="hot-user-article-title"> 為何外國人就生氣了</div>
-                <div class="hot-user-article-degree-block">
-                  人氣值
-                  <span class="degree">33</span>
-                </div>
-              </div>
-            </div>                 <div class="hot-box">
-              <div class="hot-user-info">
-                <div class="hot-avatar">
-                  <img class="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJpVMhGuzhv8MXtrcT4cJtTs-jZ57X-h6FEcaATPVQN3rCiUwZA">
-                </div>
-                <div class="hot-user-account">  tzarevitch</div>
-                <div class="hot-user-name"> 小美冰淇淋</div>
-                <div class="hot-user-article-title"> 為何外國人就生氣了</div>
-                <div class="hot-user-article-degree-block">
-                  人氣值
-                  <span class="degree">33</span>
-                </div>
-              </div>
-            </div>                 <div class="hot-box">
-              <div class="hot-user-info">
-                <div class="hot-avatar">
-                  <img class="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJpVMhGuzhv8MXtrcT4cJtTs-jZ57X-h6FEcaATPVQN3rCiUwZA">
-                </div>
-                <div class="hot-user-account">  tzarevitch</div>
-                <div class="hot-user-name"> 小美冰淇淋</div>
-                <div class="hot-user-article-title"> 為何外國人就生氣了</div>
-                <div class="hot-user-article-degree-block">
-                  人氣值
-                  <span class="degree">33</span>
-                </div>
-              </div>
-            </div>                 <div class="hot-box">
-              <div class="hot-user-info">
-                <div class="hot-avatar">
-                  <img class="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJpVMhGuzhv8MXtrcT4cJtTs-jZ57X-h6FEcaATPVQN3rCiUwZA">
-                </div>
-                <div class="hot-user-account">  tzarevitch</div>
-                <div class="hot-user-name"> 小美冰淇淋</div>
-                <div class="hot-user-article-title"> 為何外國人就生氣了</div>
-                <div class="hot-user-article-degree-block">
-                  人氣值
-                  <span class="degree">33</span>
-                </div>
-              </div>
-            </div>
+@endforeach
+
+
+
           </div>
         </div>
         

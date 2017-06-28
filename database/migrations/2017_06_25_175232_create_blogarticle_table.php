@@ -24,6 +24,7 @@ class CreateBlogarticleTable extends Migration
             $table->string('secret')->nullable();
             $table->string('image')->nullable();
             $table->integer('watch_count')->default('0');
+            $table->boolean('fashioned_out')->default('0');
             $table->boolean('status')->default('1');
             $table->string('hint')->nullable();
             $table->timestamps();

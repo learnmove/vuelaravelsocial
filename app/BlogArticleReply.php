@@ -16,4 +16,8 @@ class BlogArticleReply extends Model
     public function user(){
     	return $this->belongsTo('App\User','user_id','id');
     }
+    public function owner(){
+        return $this->belongsTo('App\User','blog_user_id','id');
+    }
+
 }

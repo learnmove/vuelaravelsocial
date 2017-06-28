@@ -81,7 +81,6 @@
         </div>
         <div class="reply-time">
         {{$reply->created_at}}
-          
         </div>
       </div>
     </div>

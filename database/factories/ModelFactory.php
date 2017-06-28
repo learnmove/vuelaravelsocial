@@ -14,7 +14,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
-
+    $faker = Faker\Factory::create('zh_TW');
     return [
         'account' => $faker->userName,
         'email' => $faker->unique()->safeEmail,
@@ -26,7 +26,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'username'=>$faker->name,
         'designer'=>$faker->name,
         // 'ip'=>$faker->ipv4,
-        'location'=>$faker->state,
+        'location'=>$faker->country(),
 
     ];
 });
@@ -44,6 +44,7 @@ $factory->define(App\UserInfo::class,
 
 $factory->define(App\Blog::class,
     function(Faker\Generator $faker){
+    $faker = Faker\Factory::create('zh_TW');
 
     return [
         'blog_title'=>$faker->userName
@@ -54,19 +55,27 @@ $factory->define(App\Blog::class,
 $factory->define(App\BlogArticle::class,
 
     function(Faker\Generator $faker){
+    $faker = Faker\Factory::create('zh_TW');
+
         return [
             'title'=>$faker->sentence,
-            'content'=>$faker->paragraph
+            'content'=>$faker->paragraph,
+            'article_site'=>$faker->unique()->randomNumber()
         ];
     }
     );
 $factory->define(App\BlogArticleReply::class,
 
     function(Faker\Generator $faker){
+    $faker = Faker\Factory::create('zh_TW');
+
+    
+
         return [
             'content'=>$faker->sentence,
             'private'=>rand(0,1),
-            'user_id'=>rand(1,15)
+            'user_id'=>rand(1,15),
+           
         ];
     }
     );
