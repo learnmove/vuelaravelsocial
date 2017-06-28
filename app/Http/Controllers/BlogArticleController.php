@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\BlogArticle;
 use Auth;
+use Image;
+use Storage;
 class BlogArticleController extends Controller
 {
     //
@@ -18,11 +20,19 @@ class BlogArticleController extends Controller
     			'content.max'=>'內容最多2000字'
 
     			]);
-
+    		$account=Auth::user()->account;
+    		$store_path=public_path('/user/blog_article_image/'.$account.'/');
     		$article=$rq->all();
     		if($rq->hasFile('image')){
     			$image=$rq->file('image');
     			$filename=\Carbon\Carbon::now()->format('Y-m-d').uniqid().'.'.$image->getClientOriginalExtension();
+    			if(!file_exists($store_path)){
+    				mkdir($store_path);
+    			}
+    			Image::make($image)->resize(390,null, function ($constraint) {
+    $constraint->aspectRatio();
+})->save( $store_path.$filename );
+    		$article['image']=$filename;
 
     		}
     		$article['article_site']=md5(uniqid());

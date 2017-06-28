@@ -38,7 +38,7 @@ class BlogController extends Controller
     	$article=BlogArticle::where('article_site',$article_site)
     	->first()
     	;
-        $replies= $this->getArticleReply($article->id)->reverse();
+        $replies= $this->getArticleReply($article->id);
 
 
           if(!Cookie::has(md5('visited'.$article_site))){
