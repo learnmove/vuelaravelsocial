@@ -21,7 +21,12 @@ Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 
 // protect Auth
 		Route::group(['middleware'=>'auth'],function(){
+		// Mood post
+			Route::post('/mood','MoodController@postMood')
+			->name('postMood');
 
+
+			// post article
 				Route::post('/{user}/post','BlogArticleController@postArticle')->name('post_article');
 		// style blog
 				Route::get('{user}/custom','BlogController@getChangeBlogStyle')
@@ -46,6 +51,7 @@ Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 		Route::get('/',function(){
 			return redirect()->route('blog::latest-article');
 		});
+			
 
 
 		});

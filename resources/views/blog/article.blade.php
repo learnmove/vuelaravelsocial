@@ -13,10 +13,10 @@
       <div class="date">{{$article->created_at->format('Y-m-d')}}</div>
     </div>
     <div class="article-short-content">
-      @if(asset('user/blog_article_image/'.$user.'/'.$article->image))
-      <img class="content-img" src="{{asset('user/blog_article_image/'.$user.'/'.$article->image)}}
-      ">
-      @endif
+      @if(file_exists('/user/blog_article_image/'.$user.'/'.$article->image))
+                    <img class="content-img" src="{{asset('user/blog_article_image/'.$user.'/'.$article->image)}}
+                    ">
+                  @endif
       {!!$article->content!!}
     </div>
     <div class="post-info">
@@ -69,7 +69,7 @@
       </div>
       <div class="article-commnet-info">
         <div class="article-commnet-user-name">
-        <a href="" style="color:inherit;">{{$reply->user->designer}}</a>
+        <a href="{{route('blog::article-list',['user'=>$reply->user->account])}}" style="color:inherit;">{{$reply->user->designer}}</a>
         </div>
         <div class="article-commnet-content">
         @if(!$reply->private||Auth::check()&&Auth::user()->id==$reply->user_id||Auth::check()&&Auth::user()->account==$user)

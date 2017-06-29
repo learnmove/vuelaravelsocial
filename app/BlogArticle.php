@@ -26,5 +26,6 @@ class BlogArticle extends Model
     public function replies(){
      return  $this->hasMany('App\BlogArticleReply');
     }
-  
+
+
 }

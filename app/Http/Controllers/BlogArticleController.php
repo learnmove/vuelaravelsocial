@@ -8,6 +8,7 @@ use Auth;
 use Image;
 use Storage;
 use Cache;
+use App\Mood;
 class BlogArticleController extends Controller
 {
     //
@@ -46,20 +47,27 @@ class BlogArticleController extends Controller
     }
 
     public function getLatestArticle(){
-
+    $moods=$this->getMoodMessage();
     $articles=BlogArticle::with('user')->orderBy('created_at','desc')->limit(100)->paginate(24);
-    $popularArticle=$this->getPopularArticle();
-          return view('blog.latest-article',compact(['popularArticle','articles']));
+    $popularArticles=$this->getPopularArticle();
+          return view('blog.latest-article',compact(['popularArticles','articles','moods']));
           // 試用compact
 
     }
-      public function getPopularArticle(){
-        $popularArticle = Cache::remember('popularArticle', 1440, function() {
-    return BlogArticle::where('fashioned_out',0)->orderBy('watch_count','desc')->limit(3)->get();
-});
-            
+    public function getMoodMessage(){
 
-      return $popularArticle;
+        $moods=Mood::with('user')->orderBy('created_at','desc')->limit(5)->get();
+        return $moods;
+    }
+
+
+      public function getPopularArticle(){
+//         $popularArticles = Cache::remember('popularArticles', 1440, function() {
+//     return BlogArticle::with('user')->where('fashioned_out',0)->orderBy('watch_count','desc')->limit(3)->get();
+// });
+            
+ $popularArticles = BlogArticle::with('user')->where('fashioned_out',0)->orderBy('watch_count','desc')->limit(3)->get();
+      return $popularArticles;
     }
 }
 

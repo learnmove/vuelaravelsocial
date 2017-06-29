@@ -17,9 +17,8 @@ class BlogController extends Controller
     //
 
     public function getBlog($user){
-      
     	$stuff=$this->getBlogStuff($user);
-    	$articles=BlogArticle::where('user_id',$stuff['user_id'])->orderBy('created_at','desc')->paginate(5);
+    	$articles=BlogArticle::with('replies')->where('user_id',$stuff['user_id'])->orderBy('created_at','desc')->paginate(5);
 
 		return view('blog.article-list')->
 		with('blog',$stuff['blog'])->

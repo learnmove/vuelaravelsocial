@@ -79,3 +79,11 @@ $factory->define(App\BlogArticleReply::class,
         ];
     }
     );
+$factory->define(App\Mood::class,function(Faker\Generator $faker){
+
+
+    return [
+        'content'=>$faker->sentence
+    ];
+
+});

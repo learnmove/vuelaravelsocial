@@ -23,39 +23,19 @@ class DatabaseSeeder extends Seeder
 
          for($i=1;$i<15;$i++){
                $user_article=$u->blog_article()->save(
-         factory(App\BlogArticle::class)->make());
-  $reply=factory(App\BlogArticleReply::class)->make();
-        $reply->blog_user_id=$u->id;
-         $user_article->replies()->save($reply);
+                factory(App\BlogArticle::class)->make());
+                 //使用者文章會有回覆
+                $reply=factory(App\BlogArticleReply::class)->make();
 
-sleep(1);
+                $reply->blog_user_id=$u->id;
+                 $user_article->replies()->save($reply);
 
-
-
+        sleep(1);
          }
+
+         $u->mood()->save(factory(App\Mood::class)->make());
      
-
-
-         // $user_article=$u->blog_article()->save(factory(App\BlogArticle::class)->make()); 
-
-
-
-
-          //使用者文章會有回覆
-         // 1.可行
-        // $reply=factory(App\BlogArticleReply::class)->make();
-        // $reply->blog_user_id=$u->id;
-        //  $user_article->replies()->save($reply);
-
-
-
-
-
-
-    
         
-
-
         }
         );
 

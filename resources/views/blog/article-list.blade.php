@@ -18,7 +18,7 @@
                   <div class="article-short-content">
           
               
-                   @if(asset('/user/blog_article_image/'.$user.'/'.$article->image))
+                   @if(file_exists('/user/blog_article_image/'.$user.'/'.$article->image))
                     <img class="content-img" src="{{asset('user/blog_article_image/'.$user.'/'.$article->image)}}
                     ">
                   @endif
@@ -29,7 +29,7 @@
                   <a class="readmore" href="  {{route('blog::article',[$user,$article->article_site   ])}}">(More......)</a>
                   <div class="post-info">
                     <span class="post-time">06:16 AM</span>
-                    <span class="reply-count">回覆({{count($article->replies)}} )</span>
+                  <a href="{{route('blog::article',[$user,$article->article_site   ])}}">  <span class="reply-count">回覆({{count($article->replies)}} )</span></a>
                     <i class="fa fa-eye" aria-hidden="true"></i>
                     <span class="photo-watch-count">{{$article->watch_count}}</span>
                   </div>

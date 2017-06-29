@@ -17,7 +17,7 @@
       <div class="self-container all-preference">
 
         <div class="jumbotron jumbotron-preference">
-          <img class="self-banner" src="{{asset('user/banners/abcdefg.jpg')}} ">
+          <img class="self-banner" src="{{$blog->banner}} ">
           <div class="jumbotron-text">
               <h1 class="self-blog-title">{{$blog->banner_title}}</h1>
           <p class="self-blog-description">{{$blog->banner_text}} </p>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="block-background recent-article-block border ">
                   <div class="top-tab-preference links-top-background">
-                    Recent Articles
+                    最新文章
                   </div>
                   <div class="recent-article-title">
                     <ul>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="block-background recent-comments-block border ">
                   <div class="top-tab-preference recent-comments-top links-top-background">
-                    Recent comment
+                    最新回覆
                   </div>
 
                   @forelse($recent_replies as $recent_replies)

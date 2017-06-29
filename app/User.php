@@ -62,6 +62,9 @@ class User extends Authenticatable
     public function owner_replies(){
           return $this->hasMany('App\BlogArticleReply','blog_user_id','id');
     }
+    public function mood(){
+        return $this->hasMany('App\Mood');
+    }
 
 
 }
