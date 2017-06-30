@@ -16,8 +16,11 @@ class DiscussArticle extends Migration
         Schema::create('discuss_article', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+
             $table->string('title');
             $table->text('content');
+            $table->string('image')->nullable();
+
             $table->timestamps();
         });
     }

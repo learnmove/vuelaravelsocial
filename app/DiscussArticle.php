@@ -8,7 +8,7 @@ class DiscussArticle extends Model
 {
     //
     protected $table='discuss_article';
-    protected $fillable=['user_id','content','article_tags_id','title'];
+    protected $fillable=['user_id','content','article_tags_id','title','image'];
     public $timestamps=true;
     public function user(){
     	return $this->belongsTo('App\User');

@@ -8,7 +8,7 @@
             <div class="discuss-item">
               <div class="discuss-category">
                 <div class="category">{{$article->tag->first()->tag_value}} </div>
-                <div class="reply-count"><p>12</p></div>
+                <div class="reply-count"><p>{{count($article->replies)}} </p></div>
 
               </div>
               <div class="discuss-title-block">
@@ -45,7 +45,7 @@
       </div>
      <div class="form-group">
   <label for="comment" >發表內容:</label>
-  <textarea class="form-control" rows="5" name="content" maxlength="3000" id="comment"></textarea>分類：
+  <textarea id="content" class="form-control" rows="5" name="content" maxlength="3000" id="comment"></textarea>分類：
   <select name="category">
   @foreach($tags as $tag)
   <option selected="selected"   value="{{$tag->id}}">{{$tag->tag_value}} </option>
@@ -55,9 +55,14 @@
 </select>
 </div>
 <img src="  " id="img-upload">
-
-<input type="file" id="imginput"  name="image" name="image" accept="image/jpeg,image/gif" id="">
-<button class="btn btn-primary">  送出</button>
+<input  type="file" id="imginput" class="dropzone" name="" name="image" accept="image/jpeg,image/gif" id="">
+<input type="hidden" id="imgsite" name="image" value="" >
+<div id="progress" style="display: none;" class="progress">
+    <div id="progressbar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:50%;">
+      50%
+    </div>
+  </div>
+<button  class="btn btn-primary submit-btn">  送出</button>
       </form>
     </div>
   </div>

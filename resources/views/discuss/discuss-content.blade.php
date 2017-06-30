@@ -2,6 +2,8 @@
 @section('css')
 
     <link rel="stylesheet"  href="{{asset('css/discuss-content.css')}}">
+
+
 @stop
 @section('discuss-block')
 
@@ -29,6 +31,7 @@
           </div>
 
           <div class="article-content">
+          <img class="img-responsive" src="{{$article->image}}"></img>
       {!!$article->content!!}
             
           </div>
@@ -50,7 +53,9 @@
               <!-- <img class="thumb" src="./image/thumb.png"> -->
 
               </div>
-                 <div class="comment-content">  {{$reply->content}}
+                 <div class="comment-content"> 
+
+                  {{$reply->content}}
               </div>
               </div>
               
