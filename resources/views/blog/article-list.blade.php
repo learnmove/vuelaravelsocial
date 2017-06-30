@@ -18,9 +18,11 @@
                   <div class="article-short-content">
           
               
-                   @if(file_exists('/user/blog_article_image/'.$user.'/'.$article->image))
+                   @if(!is_null($article->image))
                     <img class="content-img" src="{{asset('user/blog_article_image/'.$user.'/'.$article->image)}}
                     ">
+                    @else
+                    noimage
                   @endif
                 {!!$article->content!!}
          

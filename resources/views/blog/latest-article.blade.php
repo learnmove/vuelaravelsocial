@@ -18,7 +18,7 @@
           @foreach($moods as $mood)
 <div class="speak-item">  
 <a href="{{route('blog::article-list',['user'=>$mood->user->account])}} ">
-  <img class="img-circle" src="  http://des13.cc/star/media/k2/items/cache/eefd4fe8f589e64e0e66a4f2937ae4ae_L.jpg"><span class="speak-name">{{$mood->user->designer}} </span>說:<span class="speak-content"> {{$mood->content}}
+  <img class="img-circle" src="{{asset('user/avatars/'.$mood->user->avatar)}}"><span class="speak-name">{{$mood->user->designer}} </span>說:<span class="speak-content"> {{$mood->content}}
 </span>
   
 </a>
@@ -45,8 +45,13 @@
                 ])
                 }} ">
               <div class="hot-user-info">
-                <div class="hot-avatar">
-                  <img class="" src="{{asset('image/image2.jpg')}}">
+               <div class="hot-user-info-wrapper">
+                   <div class="hot-avatar">
+                   @if(!is_null($popularArticle->image))
+ <img class="" src="{{asset('user/blog_article_image/'.$popularArticle->user->account.'/'.$popularArticle->image)}}">
+@else
+ <img class="" src="{{asset('user/origin-avatars/'.$popularArticle->user->avatar)}}">
+ @endif
                 </div>
 
                 <div class="hot-user-account"> {{$popularArticle->user->designer}}</div>
@@ -58,6 +63,8 @@
                 <div class="hot-sign">
                   <i class="fa fa-free-code-camp" aria-hidden="true"></i>
                 </div>
+               </div>
+              
               </div>
               </a> 
             </div>
@@ -77,11 +84,15 @@
                       <div class="hot-box">
                         <a href="{{route('blog::article',['user'=>$article->user->account,'article_site'=>$article->article_site])}} ">
               <div class="hot-user-info">
+                <div class="hot-user-info-wrapper">
+
                 <div class="hot-avatar">
                 
-                  
- <img class="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJpVMhGuzhv8MXtrcT4cJtTs-jZ57X-h6FEcaATPVQN3rCiUwZA">
-
+                  @if(!is_null($article->image))
+ <img class="" src="{{asset('user/blog_article_image/'.$article->user->account.'/'.$article->image)}}">
+@else
+ <img class="" src="{{asset('user/origin-avatars/'.$article->user->avatar)}}">
+ @endif
                  
                 </div>
                 <div class="hot-user-account"> 
@@ -92,6 +103,7 @@
                 <div class="hot-user-article-degree-block">
                   人氣值
                   <span class="degree">{{$article->watch_count}}</span>
+                </div>
                 </div>
               </div>
                 </a>

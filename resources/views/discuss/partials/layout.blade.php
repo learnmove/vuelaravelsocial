@@ -6,18 +6,10 @@
         <!-- discuss -->
         <div class="container">
               <ul class="nav nav-pills">
-  <li class="active"><a href="#">全部</a></li>
-  <li><a href="#">閒聊</a></li>
-  <li><a href="#">職場</a></li>
-  <li><a href="#">外包</a></li>
-  <li><a href="#">徵才</a></li>
-  <li><a href="#">教學</a></li>
-  <li><a href="#">技術</a></li>
-  <li><a href="#">開班</a></li>
-  <li><a href="#">家教</a></li>
-  <li><a href="#">交易</a></li>
-  <li><a href="#">合作</a></li>
-
+              <li class=""><a  href="{{route('discuss::list')}} ">全部 </a></li>
+              @foreach($tags as $tag)
+  <li class=""><a  href="{{route('discuss::list',['category_id'=>$tag->id])}} ">{{$tag->tag_value}} </a></li>
+ @endforeach
 
 
 </ul>

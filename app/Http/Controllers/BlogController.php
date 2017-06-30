@@ -10,6 +10,7 @@ use Session;
 use Cookie;
 use App\Blog;
 use App\BlogArticleReply;
+use File;
 class BlogController extends Controller
 {
 
@@ -20,6 +21,7 @@ class BlogController extends Controller
     	$stuff=$this->getBlogStuff($user);
     	$articles=BlogArticle::with('replies')->where('user_id',$stuff['user_id'])->orderBy('created_at','desc')->paginate(5);
 
+// public_path('/user/blog_article_image/'.$user.'/'.$article->image)
 		return view('blog.article-list')->
 		with('blog',$stuff['blog'])->
 		with('user',$user)->

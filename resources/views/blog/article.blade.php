@@ -13,9 +13,10 @@
       <div class="date">{{$article->created_at->format('Y-m-d')}}</div>
     </div>
     <div class="article-short-content">
-      @if(file_exists('/user/blog_article_image/'.$user.'/'.$article->image))
+       @if(!is_null($article->image))
                     <img class="content-img" src="{{asset('user/blog_article_image/'.$user.'/'.$article->image)}}
                     ">
+                    @else
                   @endif
       {!!$article->content!!}
     </div>

@@ -62,19 +62,17 @@ Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 
 // discuss
 Route::group(['prefix'=>'discuss','as'=>'discuss::'],function(){
-		Route::get('/list',[
-			'as'=>'list', 
-			function(){
-		return view('discuss.discuss-list');
-	}
-	]);
-		Route::get('/article',[
-			'as'=>'article', 
-			function(){
-		return view('discuss.discuss-content');
-	}
-	]);
+		Route::get('/list/{category?}',
+		'DiscussController@getDiscussList'
+	)->name('list');
 
+		
+		Route::get('/article/{id}',
+			'DiscussController@getDiscussArticle'
+	)->name('article');
+		Route::post('/article/post','DiscussController@postDiscussArticle')->name('post-article');
+		// reply
+			Route::post('/article/{id}/reply','DiscussController@postDiscussArticleReply')->name('post-reply');
 
 
 	

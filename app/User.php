@@ -65,6 +65,13 @@ class User extends Authenticatable
     public function mood(){
         return $this->hasMany('App\Mood');
     }
+    public function write_discuss_article(){
+         return $this->hasMany('App\DiscussArticle');
 
+    }
+    public function write_discuss_reply(){
+       return  $this->hasMany('App\DiscussArticleReply');
+    }
+ 
 
 }

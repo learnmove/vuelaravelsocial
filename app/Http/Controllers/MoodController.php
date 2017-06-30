@@ -9,6 +9,7 @@ class MoodController extends Controller
 {
     //
      public function postMood(Request $rq){
+     	$this->validate($rq,['content'=>'max:16']);
 		if(Auth::check()){
  		$rq['user_id']=Auth::user()->id;
  		}else{

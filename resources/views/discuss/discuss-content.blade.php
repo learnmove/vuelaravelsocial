@@ -10,66 +10,66 @@
           <div class="article-top">
             <div class="article-title">
 
-            R:父母離婚
+            {{$article->title}}
             </div>
             <div class="article-author-block">
             <span>作者:</span>
             <span class="article-time">
-            張先生
+            {{$article->user->designer}}
               
             </span>
             </div>
             <div class="article-time-block">
             <span>時間:</span>
             <span class="article-time">
-            2017-06-18 03:03:43
-              
+{{$article->created_at}}              
             </span>
             </div>
 
           </div>
 
           <div class="article-content">
-         <br>國民黨主席洪秀柱確定6月底提前請辭，國民黨主席當選人吳敦義今天對此表示，「那是
-         <br>她的決定」、「反正交接日期是8月20號」；而國民黨現金不足，7月恐怕發不出薪水給黨
-         <br>工，吳敦義說，洪秀柱「不能撒手不管，我想她應該知道怎麼樣負責任。」
-         <br>針對新任中央委員選舉爭議，吳敦義指出，依照黨章規定，要提早兩個月公告黨代表大會
-      
+      {!!$article->content!!}
             
           </div>
           <div class="article-comment-block">
-            <div class="comment">
+          @foreach($replies as $reply)
+        <div class="comment">
 
             <div class="wrap-comment-user">
 
                 <div class="comment-avatar">
-                <img class="img-responsive img-circle" src="{{asset('image/avatar.png')}} ">
+                <img class="img-responsive img-circle" src="{{asset('user/avatars/'.$reply->discussReplytUser->avatar)}}">
                 </div>
-
-                <div class="comment-name-block">
-
+              <div class="comment-name-content-wrapper">
+                  <div class="comment-name-block">
+          
               <div class="comment-name">
-                張先生
+                {{$reply->discussReplytUser->designer}}
               </div>
-              <img class="thumb" src="{{asset('image/thumb.png')}} ">
+              <!-- <img class="thumb" src="./image/thumb.png"> -->
 
               </div>
-
-              <div class="comment-content">說，洪秀柱「不能撒說，洪秀柱「不能撒手不管，我想她應該知道怎手不管，我想她應該知道怎說，洪秀柱「不能撒說，洪秀柱「不能撒手不管，
+                 <div class="comment-content">  {{$reply->content}}
               </div>
+              </div>
+              
+
+             
 
             </div>
                           <div class="comment-time">
-                2017-06-18 03:03:43
+                {{$reply->created_at}}
               </div>
             </div>
-            
+            @endforeach()
 
           </div>
-<form class="form-fixed">
+<form class="form-fixed" method="post" action="{{route('discuss::post-reply',['article_id'=>$article->id])}} " >
+{{csrf_field()}}
   <div class="form-group">
     <label for="exampleInputEmail1">評論</label>
-    <input type="text" class="form-control" placeholder="輸入文字">
+    <input type="text" class="form-control" placeholder="輸入文字" name="content">
   </div>
   <button class="btn btn-primary">送出</button>
 </form>

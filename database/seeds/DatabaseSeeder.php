@@ -30,15 +30,20 @@ class DatabaseSeeder extends Seeder
                 $reply->blog_user_id=$u->id;
                  $user_article->replies()->save($reply);
 
-        sleep(1);
          }
 
          $u->mood()->save(factory(App\Mood::class)->make());
-     
-        
+         // disucss a
+
+       
+
+ $discuss_article=$u->write_discuss_article()->save(factory(App\DiscussArticle::class)->make());
+        $discuss_article->tag()->attach(rand(1,10));
+    // discuss reply
+        $discuss_article->replies()->save(factory(App\DiscussArticleReply::class)->make());
+       
         }
         );
-
 
 
     }

@@ -87,3 +87,19 @@ $factory->define(App\Mood::class,function(Faker\Generator $faker){
     ];
 
 });
+// discuss
+$factory->define(App\DiscussArticle::class,function(Faker\Generator $faker){
+    return [
+        'title'=>$faker->sentence,
+        'content'=>$faker->paragraph
+    ];
+});
+        // reply
+
+
+$factory->define(App\DiscussArticleReply::class,function(Faker\Generator $faker){
+    return [
+        'content'=>$faker->paragraph,
+        'user_id'=>rand(1,10)
+    ];
+});
