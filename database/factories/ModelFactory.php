@@ -103,3 +103,18 @@ $factory->define(App\DiscussArticleReply::class,function(Faker\Generator $faker)
         'user_id'=>rand(1,10)
     ];
 });
+// gallery article
+$factory->define(App\GalleryArticle::class,function(Faker\Generator $faker){
+    return [
+        'content'=>$faker->paragraph,
+        'title'=>$faker->sentence,
+        'image'=>$faker->imageUrl($width=640,$height=480),
+        'description'=>$faker->sentence
+    ];
+});
+$factory->define(App\GalleryReply::class,function(Faker\Generator $faker){
+    return [
+        'content'=>$faker->paragraph,
+        'user_id'=>rand(1,15)
+    ];
+});

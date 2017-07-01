@@ -10,11 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Http\Request;
+// gallery
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
-
+Route::get('/', 'GalleryController@getGallery')->name('index');
+Route::post('/photo/post','GalleryController@postPhotoArticle')->name('gallery-article-post');
+Route::post('/gallery/comment/post','GalleryController@postReply')->name('gallery-reply');
 
 Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 		
@@ -62,7 +63,7 @@ Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 
 // discuss
 Route::group(['prefix'=>'discuss','as'=>'discuss::'],function(){
-		Route::get('/list/{category?}',
+		Route::get('/list/{category_id?}',
 		'DiscussController@getDiscussList'
 	)->name('list');
 
@@ -77,6 +78,7 @@ Route::group(['prefix'=>'discuss','as'=>'discuss::'],function(){
 
 	
 });
+
 // stream-video
 Route::get('stream-video',function(){
 	return view('video.stream-video-grid');

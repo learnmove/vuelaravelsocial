@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta name="viewport" content="width=400px;initial-scale=0.5">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta charset="UTF-8">
     <title>@yield("title","戀戀風塵 L' avion ") </title>

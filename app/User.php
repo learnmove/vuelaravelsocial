@@ -72,6 +72,12 @@ class User extends Authenticatable
     public function write_discuss_reply(){
        return  $this->hasMany('App\DiscussArticleReply');
     }
- 
+    public function gallery(){
+        return $this->hasMany('App\GalleryArticle');
+    }
+    public function write_gallery_reply(){
+        return $this->hasMany('App\GalleryReply');
+    }
+
 
 }

@@ -9,9 +9,10 @@
             <div class="columns">
               
               
-                  <div class="article-work-item">
+       @foreach($articles as $article)
+   <div class="article-work-item">
                 <div class="photo-block">
-                  <img class="photo" src="http://lorempixel.com/1920/1920/">
+                  <img class="photo content-img" src="{{asset('/user/gallery/'.$article->user->account.'/'.$article->image_xs)}} ">
                   
                   <div class="about-count">
                     <div class="photo-like">
@@ -20,37 +21,37 @@
                     </div>
                     <div class="watch-count-block">
                       <i class="fa fa-eye" aria-hidden="true"></i>
-                      <span class="photo-watch-count">55</span>
+                      <span class="photo-watch-count">{{$article->watch_count}}</span>
                     </div>
                   </div>
                 </div>
                 
                 
                 <div class="caption">
-                  <div photo-title>天邊一朵雲</div>
-                  <p class="photo-description text-overflow">Bootstrap example of User Comment Example usingtstra </p>
-                  <div class="price-block"> <i class="fa fa-usd" aria-hidden="true"></i><span class="price"> 0</span></div>
+                  <div photo-title>{{$article->title}} </div>
+                  <p class="photo-description text-overflow">{{$article->description}}  </p>
+                  <div class="price-block"> <i class="fa fa-usd" aria-hidden="true"></i><span class="price"> {{$article->price}}</span></div>
                   <div class="hover-user-info">
                     <div class="user-info">
                       
                       <div class="user-avatar ">
                         
-                        <img class="img-circle  avatar" src="{{asset('user/avatars/qwdqwd.jpg')}}">
+                        <img class="img-circle  avatar" src="{{asset('user/avatars/'.$article->user->avatar)}}">
                         
                       </div>
                       
-                      <div class="user-name">字字字字字字字 </div>
+                      <div class="user-name">{{$article->user->designer}} </div>
                       
                       
                     </div>
                     <div class="user-info-2">
-                      <div class="user-year "> 24歲</div>
-                      <div class="user-address "> 高雄</div>
-                      <div class="user-zodiac  "> 金牛座</div>
+                      <div class="user-year "> {{$article->user->age}} 歲</div>
+                      <div class="user-address ">{{$article->user->location}} </div>
+                      <div class="user-zodiac  ">{{$article->user->zodiac}}</div>
                 
                     </div>
                     <div class="user-info-3">
-                            <div class="user-company "> 國立高雄應用科技大學</div>
+                            <div class="user-company "> {{$article->user->company}} </div>
                     </div>
                     <div class="user-function">
                       <div class="wrap-user-function">
@@ -65,24 +66,26 @@
                     
                   </div>
                   <div class="short-comment-block">
-                    <a href="#" class="message-count">8則留言</a>
+                    <a href="#" class="message-count"  id="comment-{{$article->id}}">{{count($article->ownReply)}} 則留言</a>
                     <a href="#" class="share-count">34則分享</a>
                   </div>
                   <div class="function-action">
                     <ul>
                       <li>   <a class="photo-like-link" href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
                       like</a></li>
-                      <li><a href="#"><i class="fa fa-comment" aria-hidden="true"></i>
+                      <li><a href="#" class="replybox" id="replybox-{{$article->id}} " ><i class="fa fa-comment" aria-hidden="true"></i>
                       留言</a></li>
                       <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i>
                       分享</a></li>
                     </ul>
                   </div>
-                  <div class="comment-block-wrap">
+                    <div class="form-group">
+                            <input type="text" id="reply-{{$article->id}}" name="reply_contenet" class="form-control post-comment">
+                          </div>
+                  <div class="comment-block-wrap" id="comment-box-{{$article->id}}">
                     <div class="comment-block">
-                      <div class="comments">
-                        
-                        
+                      <div class="comments" id="comments-{{$article->id}}">
+                        @foreach($article->ownReply as $reply)
                         <div class="comment">
                           <div class="comment-user">
                             <div class="comment-user-avatar">
@@ -96,254 +99,32 @@
                                   個人檔案</a>
                                 </div>
                               </div>
-                              <img class="img-circle " src="  https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-1/p100x100/13445668_1185534944830429_6149632547090808033_n.jpg?oh=77610c17eff8a8e983637587183bf0de&oe=59DD6360">
+                              <img class="img-circle " src="  {{asset('user/avatars/'.$reply->user->avatar)}}">
                             </div>
-                            <div class="comment-user-name"> 賴金旺 </div>
+                            <div class="comment-user-name">
+                            {{$reply->user->designer}} 
+                             </div>
                             
                           </div>
                           <div class="comment-text">
-                            張哥你這張好帥，晚上來我家
-                            <span>50分鐘前</span>
+                            {{$reply->content}}
+                            <div style="text-align: right">50分鐘前</div>
                           </div>
-                          <div class="comment-like-block">
-                            <a href=" " class="comment-like">Like</a>
-                            <a href="#" class="comment-like-link"><i class="fa fa-heart" aria-hidden="true"></i>
-                              </a><span class="comment-like-count">3  </span>
-                            </div>
+                        
                           </div>
-                          
+                          @endforeach
                           
                         </div>
-                        
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>      <div class="article-work-item">
-                <div class="photo-block">
-                  <img class="photo" src="http://lorempixel.com/1920/1920/">
-                  
-                  <div class="about-count">
-                    <div class="photo-like">
-                      <i class="fa fa-heart" aria-hidden="true"></i>
-                      <span class="photo-like-count">223</span>
-                    </div>
-                    <div class="watch-count-block">
-                      <i class="fa fa-eye" aria-hidden="true"></i>
-                      <span class="photo-watch-count">55</span>
-                    </div>
-                  </div>
-                </div>
-                
-                
-                <div class="caption">
-                  <div photo-title>天邊一朵雲</div>
-                  <p class="photo-description text-overflow">Bootstrap example of User Comment Example usingtstra </p>
-                  <div class="price-block"> <i class="fa fa-usd" aria-hidden="true"></i><span class="price"> 0</span></div>
-                  <div class="hover-user-info">
-                    <div class="user-info">
-                      
-                      <div class="user-avatar ">
-                        
-                        <img class="img-circle  avatar" src="{{asset('user/avatars/qwdqwd.jpg')}}">
-                        
-                      </div>
-                      
-                      <div class="user-name">字字字字字字字 </div>
-                      
-                      
-                    </div>
-                    <div class="user-info-2">
-                      <div class="user-year "> 24歲</div>
-                      <div class="user-address "> 高雄</div>
-                      <div class="user-zodiac  "> 金牛座</div>
-                
-                    </div>
-                    <div class="user-info-3">
-                            <div class="user-company "> 國立高雄應用科技大學</div>
-                    </div>
-                    <div class="user-function">
-                      <div class="wrap-user-function">
-                        <a href="" class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i>
-                        加入好友</a>
-                        <a href="" class="btn btn-primary"><i class="fa fa-comments-o" aria-hidden="true"></i>
-                        傳送訊息</a>
-                        <a href="" class="btn btn-primary"><i class="fa fa-address-book" aria-hidden="true"></i>
-                        個人檔案</a>
-                      </div>
-                    </div>
-                    
-                  </div>
-                  <div class="short-comment-block">
-                    <a href="#" class="message-count">8則留言</a>
-                    <a href="#" class="share-count">34則分享</a>
-                  </div>
-                  <div class="function-action">
-                    <ul>
-                      <li>   <a class="photo-like-link" href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
-                      like</a></li>
-                      <li><a href="#"><i class="fa fa-comment" aria-hidden="true"></i>
-                      留言</a></li>
-                      <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i>
-                      分享</a></li>
-                    </ul>
-                  </div>
-                  <div class="comment-block-wrap">
-                    <div class="comment-block">
-                      <div class="comments">
-                        
-                        
-                        <div class="comment">
-                          <div class="comment-user">
-                            <div class="comment-user-avatar">
-                              <div class="user-function">
-                                <div class="wrap-user-function">
-                                  <a href="" class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i>
-                                  加入好友</a>
-                                  <a href="" class="btn btn-primary"><i class="fa fa-comments-o" aria-hidden="true"></i>
-                                  傳送訊息</a>
-                                  <a href="" class="btn btn-primary"><i class="fa fa-address-book" aria-hidden="true"></i>
-                                  個人檔案</a>
-                                </div>
-                              </div>
-                              <img class="img-circle " src="  https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-1/p100x100/13445668_1185534944830429_6149632547090808033_n.jpg?oh=77610c17eff8a8e983637587183bf0de&oe=59DD6360">
-                            </div>
-                            <div class="comment-user-name"> 賴金旺 </div>
-                            
-                          </div>
-                          <div class="comment-text">
-                            張哥你這張好帥，晚上來我家
-                            <span>50分鐘前</span>
-                          </div>
-                          <div class="comment-like-block">
-                            <a href=" " class="comment-like">Like</a>
-                            <a href="#" class="comment-like-link"><i class="fa fa-heart" aria-hidden="true"></i>
-                              </a><span class="comment-like-count">3  </span>
-                            </div>
-                          </div>
-                          
-                          
-                        </div>
-                        
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>      <div class="article-work-item">
-                <div class="photo-block">
-                  <img class="photo" src="http://lorempixel.com/1920/1920/">
-                  
-                  <div class="about-count">
-                    <div class="photo-like">
-                      <i class="fa fa-heart" aria-hidden="true"></i>
-                      <span class="photo-like-count">223</span>
-                    </div>
-                    <div class="watch-count-block">
-                      <i class="fa fa-eye" aria-hidden="true"></i>
-                      <span class="photo-watch-count">55</span>
-                    </div>
-                  </div>
-                </div>
-                
-                
-                <div class="caption">
-                  <div photo-title>天邊一朵雲</div>
-                  <p class="photo-description text-overflow">Bootstrap example of User Comment Example usingtstra </p>
-                  <div class="price-block"> <i class="fa fa-usd" aria-hidden="true"></i><span class="price"> 0</span></div>
-                  <div class="hover-user-info">
-                    <div class="user-info">
-                      
-                      <div class="user-avatar ">
-                        
-                        <img class="img-circle  avatar" src="{{asset('user/avatars/qwdqwd.jpg')}}">
-                        
-                      </div>
-                      
-                      <div class="user-name">字字字字字字字 </div>
-                      
-                      
-                    </div>
-                    <div class="user-info-2">
-                      <div class="user-year "> 24歲</div>
-                      <div class="user-address "> 高雄</div>
-                      <div class="user-zodiac  "> 金牛座</div>
-                
-                    </div>
-                    <div class="user-info-3">
-                            <div class="user-company "> 國立高雄應用科技大學</div>
-                    </div>
-                    <div class="user-function">
-                      <div class="wrap-user-function">
-                        <a href="" class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i>
-                        加入好友</a>
-                        <a href="" class="btn btn-primary"><i class="fa fa-comments-o" aria-hidden="true"></i>
-                        傳送訊息</a>
-                        <a href="" class="btn btn-primary"><i class="fa fa-address-book" aria-hidden="true"></i>
-                        個人檔案</a>
-                      </div>
-                    </div>
-                    
-                  </div>
-                  <div class="short-comment-block">
-                    <a href="#" class="message-count">8則留言</a>
-                    <a href="#" class="share-count">34則分享</a>
-                  </div>
-                  <div class="function-action">
-                    <ul>
-                      <li>   <a class="photo-like-link" href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
-                      like</a></li>
-                      <li><a href="#"><i class="fa fa-comment" aria-hidden="true"></i>
-                      留言</a></li>
-                      <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i>
-                      分享</a></li>
-                    </ul>
-                  </div>
-                  <div class="comment-block-wrap">
-                    <div class="comment-block">
-                      <div class="comments">
-                        
-                        
-                        <div class="comment">
-                          <div class="comment-user">
-                            <div class="comment-user-avatar">
-                              <div class="user-function">
-                                <div class="wrap-user-function">
-                                  <a href="" class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i>
-                                  加入好友</a>
-                                  <a href="" class="btn btn-primary"><i class="fa fa-comments-o" aria-hidden="true"></i>
-                                  傳送訊息</a>
-                                  <a href="" class="btn btn-primary"><i class="fa fa-address-book" aria-hidden="true"></i>
-                                  個人檔案</a>
-                                </div>
-                              </div>
-                              <img class="img-circle " src="  https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-1/p100x100/13445668_1185534944830429_6149632547090808033_n.jpg?oh=77610c17eff8a8e983637587183bf0de&oe=59DD6360">
-                            </div>
-                            <div class="comment-user-name"> 賴金旺 </div>
-                            
-                          </div>
-                          <div class="comment-text">
-                            張哥你這張好帥，晚上來我家
-                            <span>50分鐘前</span>
-                          </div>
-                          <div class="comment-like-block">
-                            <a href=" " class="comment-like">Like</a>
-                            <a href="#" class="comment-like-link"><i class="fa fa-heart" aria-hidden="true"></i>
-                              </a><span class="comment-like-count">3  </span>
-                            </div>
-                          </div>
-                          
-                          
-                        </div>
-                        
                       </div>
                     </div>
                     
                   </div>
                 </div>
+                @endforeach
               </div>
+                        {{$articles->links()}}
 
             </div>
-            
             <!-- 發表作品 -->
             <!--
             -->
@@ -351,11 +132,12 @@
             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                  <form>
+                  <form method="post" action={{route('gallery-article-post')}} enctype="multipart/form-data">
+                  {{csrf_field()}}
                     <div class="form-group">
                       <label for="post-title">作品名稱
                       </label>
-                      <input type="text" maxlength="8" placeholder="8字以內" class="form-control" name="" id="" class="post-title"></div>
+                      <input type="text" maxlength="8" placeholder="8字以內" class="form-control" name="title" id="" class="post-title"></div>
                       <div class="form-group">
                         <label for="comment">作品簡述</label>
                         <textarea type="text" max class="form-control"  name="description" maxlength="36" placeholder="每行最多12個字/36字內"></textarea>
@@ -363,35 +145,151 @@
                     
                       <div class="form-group">
                         <label for="comment">作品故事</label>
-                        <textarea class="form-control" name="story" rows="5" id="comment" placeholder="三千字以內" maxlength="3000"></textarea>
+                        <textarea class="form-control" name="content" rows="5" id="comment" placeholder="三千字以內" maxlength="3000"></textarea>
                       </div>
                       <img src="  " id="img-upload">
-                      <input type="file" id="imginput" name="image" accept="image/jpeg,image/gif" id="">
+                      <input type="file" onclick="uploadImg()" id="imginput" class="dropzone"  name="little_image" accept="image/jpeg,image/gif" id="">
                          <div class="form-group">
                         <label for="comment" maxlength="10">作品價格</label>
-                        <input type="number" placeholder="無價請輸入0" class="form-control" name="price"><span> 台幣</span>
+                        <input type="number"  placeholder="無價請輸入0" class="form-control" name="price"><span> 台幣</span>
                       </div>
-                      <button class="btn btn-primary">  送出</button>
+                      <input type="hidden"  id="imgsite" name="image" value="" >
+<div id="progress" style="display: none;" class="progress">
+    <div id="progressbar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:50%;">
+      50%
+    </div>
+  </div>
+                      <button class="btn btn-primary" id="submit" disabled="true">  送出</button>
                     </form>
                   </div>
                 </div>
               </div>
+
+
+
+{{-- enlarge img --}}
+      <div class="modal fade" id="enlargeImageModal" tabindex="-1" role="dialog" aria-labelledby="enlargeImageModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:white;">Close</span></button>
+        </div>
+        <div class="modal-body">
+          <img src="" class="enlargeImageModalSource" style="width: 100%;">
+        </div>
+      </div>
+    </div>
+</div>
+
+
             </div>
             @stop
             <!-- jq -->
             @section('javascript')
             <!--  index content -->
             <script type="text/javascript" >
-            var isOpen=false;
+            $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+              // display comment
+            var open=false;
+            var token= '{{csrf_field()}}';
             $(".message-count").click(function(event){
             event.preventDefault();
-            isOpen=!isOpen;
-            if(isOpen){
-            $(".comment-block-wrap").css("display","block");
-            }else if(isOpen==false){
-            $(".comment-block-wrap").css("display","none");
+             var id=$(this).attr('id').replace('comment-','');
+            var comment_box="comment-box-" +id;   
+            if(open){
+                document.getElementById(comment_box).style.display="none";
+            open=false;
+
+            }else{
+                document.getElementById(comment_box).style.display="block";
+            open=true;
+
             }
+            
             });
+            // reply
+             var url='{{route('gallery-reply')}}';
+            var reply_box='';
+            var id='';
+            var content='';
+             var replyopen=false;
+            $(".replybox").click(function(event){
+              event.preventDefault();
+             id=$(this).attr('id').replace('replybox-','');
+             reply_box="#reply-"+id;   
+            if(replyopen){
+              $(reply_box).css('display','block');
+   
+            replyopen=false;
+            }else{
+              $(reply_box).css('display','none');
+       
+            replyopen=true;
+
+            }});
+              
+
+             $('.post-comment').keypress(function(e){
+              content=$(reply_box).val();
+              if(e.which==13){
+                 $.ajax({
+                  method:'POST',
+                  url:url,
+                  _token:token,
+                  data:{
+                    content:content,
+                    article_id:id
+
+                  }
+                 }).done(function(msg){
+                  console.log(msg[0]);
+                  var user=msg[0];
+                 var comments='#comments-'+id;
+                  $(comments).append(` <div class="comment">
+                          <div class="comment-user">
+                            <div class="comment-user-avatar">
+                              <div class="user-function">
+                                <div class="wrap-user-function">
+                                  <a href="" class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i>
+                                  加入好友</a>
+                                  <a href="" class="btn btn-primary"><i class="fa fa-comments-o" aria-hidden="true"></i>
+                                  傳送訊息</a>
+                                  <a href="" class="btn btn-primary"><i class="fa fa-address-book" aria-hidden="true"></i>
+                                  個人檔案</a>
+                                </div>
+                              </div>
+                              <img class="img-circle " src="{{asset('user/avatars/')}}${'/'+user.avatar} ">
+                            </div>
+                            <div class="comment-user-name">
+                          ${user.designer}
+                             </div>
+                            
+                          </div>
+                          <div class="comment-text">
+                           ${content}
+                            <div style="text-align: right">50分鐘前</div>
+                          </div>
+                        
+                          </div>`);
+
+
+                 });
+
+              }
+            
+         
+            });
+
+          
+
+
+
+
+            // 
             $(".photo-like-link").click(function(){
             $(".fa-heart-o").removeClass('fa-heart-o');
             })
@@ -408,5 +306,50 @@
             $("#imginput").change(function(){
             readUrl(this);
             });
+// enlarge img
+// $(function() {
+//       $('.content-img').on('click', function() {
+//       $('.enlargeImageModalSource').attr('src', $(this).attr('src'));
+//       $('#enlargeImageModal').modal('show');
+//     });
+// });
+
+
+
+
+
+
             </script>
+
+
+
+
+{{--imgur  --}}
+<script src="{{asset('js/imgur.min.js')}} "></script>
+<script>
+    var callback = function (res) {
+        if (res.success === true) {
+           $progress=document.getElementById('progressbar');
+           $progress.style.width='100%';
+           $progress.innerHTML='100% 傳輸完成';
+         document.getElementById('imgsite').value=res.data.link;
+      document.getElementById('submit').removeAttribute("disabled");
+         
+            console.log(res.data.link);
+        }
+    };
+
+    new Imgur({
+        clientid: '081f020139e558d',
+        callback: callback
+    });
+    
+    function uploadImg(){
+
+      document.getElementById('progress').style.display='block';
+    }
+    
+</script>
+
+
             @stop

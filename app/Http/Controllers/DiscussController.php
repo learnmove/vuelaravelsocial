@@ -37,6 +37,7 @@ class DiscussController extends Controller
     	if(!Auth::check()){
     		$rq['user_id']=1;
     	}
+    	$rq['image']=str_replace('http','https',$rq['image']);
     	$rq['content']=clean($rq->input('content'));
     	$article=new DiscussArticle($rq->except('category'));
     	$article->save();
