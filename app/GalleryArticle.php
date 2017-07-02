@@ -20,5 +20,8 @@ class GalleryArticle extends Model
     public function ownLike(){
     	return $this->hasMany('App\GalleryLike','article_id','id');
     }	
+    public function ownShare(){
+    	return $this->hasOne('App\GalleryShare','article_id','id');
+    }
 
 }

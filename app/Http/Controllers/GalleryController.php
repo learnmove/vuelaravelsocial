@@ -9,6 +9,7 @@ use App\User;
 use Image;
 use App\GalleryReply;
 use App\GalleryLike;
+use App\GalleryShare;
 use Cookie;
 class GalleryController extends Controller
 {
@@ -19,7 +20,7 @@ $articles=$this->getArticles();
     return view('index',compact('articles'));
     }
     public function getArticles(){
-    	return GalleryArticle::with(['user','ownReply.user','ownLike'])->orderBy('created_at','desc')->paginate(15);
+    	return GalleryArticle::with(['user','ownReply.user','ownLike','ownShare'])->orderBy('created_at','desc')->paginate(15);
     }
 
     public function postPhotoArticle(Request $rq){
@@ -114,6 +115,14 @@ if ($rq->hasFile('little_image')) {
     public function getUser($id){
       return User::find($id);
 
+    }
+    public function RenderArticleDetail($article_id){
+      $share=GalleryShare::firstOrCreate(['article_id'=>$article_id]);
+      $share->count++;
+      $share->save();
+      $article=$this->getArticle($article_id);
+      $designer=$this->getUser($article->user_id)->designer;
+      return view('photo-detail',compact('article','designer'));
     }
 
 

@@ -1,8 +1,19 @@
 @extends('partials.layout')
+
         <!-- content -->
       @section('css')
           <link rel="stylesheet" type="text/css" href="{{asset('/css/index-content.css')}}">
           @stop
+
+      @section('meta')
+  <meta property="og:url"     id="og-url"      content="" />
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"    id="og-title"     content="戀戀風塵設計師的平台：" />
+  <meta property="og:description" id="og-description"  content="" />
+  <meta property="og:image"    id="og-image"     content="" />
+@stop
+
+
       @section('content')
         <div class="content">
           <div class="creator-block">
@@ -12,8 +23,9 @@
        @foreach($articles as $article)
    <div class="article-work-item">
                 <div class="photo-block">
-                <a href="#"  class="photo" id="photo-{{$article->id}} ">  <img class="photo content-img" src="{{asset('/user/gallery/'.$article->user->account.'/'.$article->image_xs)}} "></a>
+                <a href="#"  class="photo" id="photo-{{$article->id}}">  <img class="photo content-img" id="og-photo-{{$article->id}}" src="{{asset('/user/gallery/'.$article->user->account.'/'.$article->image_xs)}}"></a>
                   
+
                   <div class="about-count">
                     <div class="photo-like">
                       <i class="fa fa-heart" aria-hidden="true"></i>
@@ -28,9 +40,9 @@
                 
                 
                 <div class="caption">
-                  <div photo-title>{{$article->title}} </div>
-                  <p class="photo-description text-overflow">{{$article->description}}  </p>
-                  <div class="price-block"> <i class="fa fa-usd" aria-hidden="true"></i><span class="price"> {{$article->price}}</span></div>
+                  <div class="photo-title" id="photo-title-{{$article->id}}">{{$article->title}}</div>
+                  <p class="photo-description text-overflow" id="photo-description-{{$article->id}}">{{$article->description}}</p>
+                  <div class="price-block"> <i class="fa fa-usd" aria-hidden="true"></i><span class="price" id="photo-price-{{$article->id}}"> {{$article->price}}</span></div>
                   <div class="hover-user-info">
                     <div class="user-info">
                       
@@ -67,7 +79,7 @@
                   </div>
                   <div class="short-comment-block">
                     <a href="#" class="message-count"  id="comment-{{$article->id}}">{{count($article->ownReply)}}則留言</a>
-                    <a href="#" class="share-count">34則分享</a>
+                    <a href="{{route('get-photo-detail',['article_id'=>$article->id])}} " class="share-count">{{is_null($article->ownShare)?0:$article->ownShare->count}} 則分享</a>
                   </div>
                   <div class="function-action">
                     <ul>
@@ -78,9 +90,17 @@
                       </a></li>
                       <li><a href="#" class="replybox" id="replybox-{{$article->id}} " ><i class="fa fa-comment" aria-hidden="true"></i>
                       留言</a></li>
-                      <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i>
+                      <li><a href="{{route('get-photo-detail',['article_id'=>$article->id])}} "><i class="fa fa-share" aria-hidden="true"></i>
                       分享</a></li>
                     </ul>
+                 
+                      
+   </div> 
+                     
+                        
+
+
+
                   </div>
                     <div class="form-group">
                             <input type="text" id="reply-{{$article->id}}" name="reply_contenet" class="form-control post-comment">
@@ -111,7 +131,7 @@
                           </div>
                           <div class="comment-text">
                             {{$reply->content}}
-                            <div style="text-align: right">50分鐘前</div>
+                            <div style="text-align: right">{{$reply->created_at->diffForHumans()}} </div>
                           </div>
                         
                           </div>
@@ -122,8 +142,13 @@
                     </div>
                     
                   </div>
-                </div>
                 @endforeach
+
+                </div>
+                </div>
+
+                </div>
+
               </div>
                         {{$articles->links()}}
 
@@ -179,9 +204,9 @@
         </div>
         <div class="modal-body">
           <img src="" class="enlargeImageModalSource" style="width: 100%;">
-          <div >作者:<div class="ModalAuthor"></div></div>
-          <div > 畫名:<div class="ModalTitle"></div></div>
-          <div>畫名:<div  class="ModalDescription"></div></div>
+          <div >作者:<spant class="ModalAuthor"></spant></div>
+          <div > 主題:<span class="ModalTitle"></span></div>
+          <div>敘述:<span  class="ModalDescription"></span></div>
           <div >故事:<div class="ModalContent"></div></div>
         </div>
       </div>
@@ -280,7 +305,7 @@
                           </div>
                           <div class="comment-text">
                            ${content}
-                            <div style="text-align: right">50分鐘前</div>
+                            <div style="text-align: right">1分鐘前</div>
                           </div>
                         
                           </div>`);
@@ -383,7 +408,9 @@
       
     });
 
-// end
+// end large
+
+
 
 
 
@@ -420,6 +447,13 @@
     }
     
 </script>
-
+{{-- facebook --}}
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.9&appId=570657736656960";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
             @stop

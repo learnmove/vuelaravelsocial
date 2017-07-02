@@ -18,6 +18,8 @@ Route::post('/gallery/comment/post','GalleryController@postReply')->name('galler
 Route::post('/gallery/photo/like','GalleryController@postLike')->name('like-photo');
 Route::get('/gallery/photo/article/{article_id?}','GalleryController@getPhotoArticle')->name('watch-photo');
 
+Route::get('/gallery/photo/article/{article_id?}/detail','GalleryController@RenderArticleDetail')->name('get-photo-detail');
+
 Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 		
 

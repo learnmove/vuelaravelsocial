@@ -15,7 +15,7 @@ class GalleryShare extends Migration
     {
         Schema::create('gallery_share', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('count')->default('0')->nullable();
             $table->integer('article_id');
             $table->timestamps();
         });
