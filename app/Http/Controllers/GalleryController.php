@@ -8,6 +8,8 @@ use Auth;
 use App\User;
 use Image;
 use App\GalleryReply;
+use App\GalleryLike;
+use Cookie;
 class GalleryController extends Controller
 {
     //
@@ -17,8 +19,9 @@ $articles=$this->getArticles();
     return view('index',compact('articles'));
     }
     public function getArticles(){
-    	return GalleryArticle::with(['user','ownReply.user'])->orderBy('created_at','desc')->paginate(15);
+    	return GalleryArticle::with(['user','ownReply.user','ownLike'])->orderBy('created_at','desc')->paginate(15);
     }
+
     public function postPhotoArticle(Request $rq){
 
  		$useraccount='';
@@ -69,4 +72,50 @@ if ($rq->hasFile('little_image')) {
        $user=User::find($rq['user_id']);
     	return response()->json([$user]);
     }
+
+    public function postLike(Request $rq){
+      $article_id=$rq->input('article_id');
+      $user='';
+
+        
+             if(Auth::check()){
+               $user_id= $rq['user_id']=Auth::user()->id;
+                if($like=GalleryLike::where('article_id',$article_id)->where('user_id', $user_id)->first()){
+               $like->delete();
+                      }else{
+                 GalleryLike::create($rq->except('_token'));
+                        
+
+                      }
+            }else{
+                if(Cookie::has('article'.$article_id)){
+                        
+                }else{
+                GalleryLike::create($rq->except('_token'));
+                    Cookie::queue('article'.$article_id,true,720);
+                }
+            }
+             
+            return response()->json(['ok']);
+      
+     
+    }
+    public function getPhotoArticle($article_id){
+        $article=$this->getArticle($article_id);
+        $designer=$this->getUser($article->user_id)->designer;
+        return response()->json([$article,$designer]);
+    }
+    public function getArticle($article_id){
+        $article= GalleryArticle::find($article_id);
+        $article->watch_count++;
+        $article->save();
+        return $article;
+    }
+    public function getUser($id){
+      return User::find($id);
+
+    }
+
+
 }
+

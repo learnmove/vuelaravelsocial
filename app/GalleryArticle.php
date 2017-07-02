@@ -17,5 +17,8 @@ class GalleryArticle extends Model
     public function ownReply(){
     	return $this->hasMany('App\GalleryReply','article_id','id');
     }
+    public function ownLike(){
+    	return $this->hasMany('App\GalleryLike','article_id','id');
+    }	
 
 }

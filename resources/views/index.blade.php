@@ -12,12 +12,12 @@
        @foreach($articles as $article)
    <div class="article-work-item">
                 <div class="photo-block">
-                  <img class="photo content-img" src="{{asset('/user/gallery/'.$article->user->account.'/'.$article->image_xs)}} ">
+                <a href="#"  class="photo" id="photo-{{$article->id}} ">  <img class="photo content-img" src="{{asset('/user/gallery/'.$article->user->account.'/'.$article->image_xs)}} "></a>
                   
                   <div class="about-count">
                     <div class="photo-like">
                       <i class="fa fa-heart" aria-hidden="true"></i>
-                      <span class="photo-like-count">223</span>
+                      <span class="photo-like-count" id="like-count-{{$article->id}}">{{count($article->ownLike)}}</span>
                     </div>
                     <div class="watch-count-block">
                       <i class="fa fa-eye" aria-hidden="true"></i>
@@ -66,13 +66,16 @@
                     
                   </div>
                   <div class="short-comment-block">
-                    <a href="#" class="message-count"  id="comment-{{$article->id}}">{{count($article->ownReply)}} 則留言</a>
+                    <a href="#" class="message-count"  id="comment-{{$article->id}}">{{count($article->ownReply)}}則留言</a>
                     <a href="#" class="share-count">34則分享</a>
                   </div>
                   <div class="function-action">
                     <ul>
-                      <li>   <a class="photo-like-link" href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
-                      like</a></li>
+                      <li>   <a class="photo-like-link" href="#" id="like-{{$article->id}}"><i class="fa {{Cookie::has('article'.$article->id)?'fa-heart':
+                        $article->ownLike->where('user_id',Auth::check()?Auth::user()->id:1)->isNotEmpty()?'fa-heart':'fa-heart-o'}}
+                        " aria-hidden="true"></i>
+                      喜歡
+                      </a></li>
                       <li><a href="#" class="replybox" id="replybox-{{$article->id}} " ><i class="fa fa-comment" aria-hidden="true"></i>
                       留言</a></li>
                       <li><a href="#"><i class="fa fa-share" aria-hidden="true"></i>
@@ -172,10 +175,14 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:white;">Close</span></button>
+          <button type="button" class="close"  data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:black;">Close</span></button>
         </div>
         <div class="modal-body">
           <img src="" class="enlargeImageModalSource" style="width: 100%;">
+          <div >作者:<div class="ModalAuthor"></div></div>
+          <div > 畫名:<div class="ModalTitle"></div></div>
+          <div>畫名:<div  class="ModalDescription"></div></div>
+          <div >故事:<div class="ModalContent"></div></div>
         </div>
       </div>
     </div>
@@ -195,7 +202,7 @@
 });
               // display comment
             var open=false;
-            var token= '{{csrf_field()}}';
+            var token= '{{Session::token()}}';
             $(".message-count").click(function(event){
             event.preventDefault();
              var id=$(this).attr('id').replace('comment-','');
@@ -236,6 +243,8 @@
              $('.post-comment').keypress(function(e){
               content=$(reply_box).val();
               if(e.which==13){
+            $(reply_box).val('');
+
                  $.ajax({
                   method:'POST',
                   url:url,
@@ -275,7 +284,14 @@
                           </div>
                         
                           </div>`);
-
+                  var comment='#comment-'+id;
+                var text=$(comment).text();
+                text=  text.replace(/^\d*/g,function(number){
+                    parseInt(number);
+                    number++;
+                    return number.toString();
+                  });
+                   $(comment).text(text);
 
                  });
 
@@ -283,15 +299,44 @@
             
          
             });
-
-          
-
+            //  end reply
 
 
+              // like
 
-            // 
+                $('.photo-like-link').click(function(event){
+                event.preventDefault();
+                    var id=$(this).attr('id').replace('like-','');
+                    var url='{{route('like-photo')}}'
+
+                $.ajax({
+                  method:'POST',
+                  url:url,
+                  _token:token,
+                  data:{
+                    like:1,
+                    article_id:id,
+                    _token:token
+
+                  }
+                 }).done(function(msg){
+              var like='#like-count-'+id;
+                var text=$(like).text();
+                text=text.replace(/^\d*/g,function(number){
+                    parseInt(number);
+                    number++;
+                    return number.toString();
+                  });
+                   $(like).text(text);
+
+                 })
+                })
+// end like
             $(".photo-like-link").click(function(){
-            $(".fa-heart-o").removeClass('fa-heart-o');
+             var id=$(this).attr('id').replace('like-','');
+            $("#like-"+id+">i").removeClass('fa-heart-o');
+            $("#like-"+id+">i").addClass('fa-heart');
+
             })
             // upload image
             function readUrl(input){
@@ -306,14 +351,39 @@
             $("#imginput").change(function(){
             readUrl(this);
             });
-// enlarge img
-// $(function() {
-//       $('.content-img').on('click', function() {
-//       $('.enlargeImageModalSource').attr('src', $(this).attr('src'));
-//       $('#enlargeImageModal').modal('show');
-//     });
-// });
+// enlarge img ajax
 
+      $('.photo').on('click', function(event) {
+        event.preventDefault();
+        var id=$(this).attr('id').replace('photo-','');
+            $.ajax({
+                  method:'GET',
+                  url:'{{route('watch-photo')}}'+'/'+id,
+                  data:{
+                    url:url
+
+                  }
+                 }).done(function(msg){
+                  console.log(msg);
+                    var article=msg[0];
+                 $('.enlargeImageModalSource').attr('src', article.image);
+                 $('.ModalTitle').text(article.title);
+                 $('.ModalDescription').text(article.description);
+                 $('.ModalContent').text(article.content);
+                 $('.ModalAuthor').text(msg[1]);
+
+
+                 $('#enlargeImageModal').modal('show');
+
+
+
+                 });
+
+
+      
+    });
+
+// end
 
 
 

@@ -78,6 +78,9 @@ class User extends Authenticatable
     public function write_gallery_reply(){
         return $this->hasMany('App\GalleryReply');
     }
+    public function posted_like(){
+        return $this->hasMany('App\GalleryLike','user_id','id');
+    }
 
 
 }

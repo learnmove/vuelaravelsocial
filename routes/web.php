@@ -10,12 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use Illuminate\Http\Request;
 // gallery
 
 Route::get('/', 'GalleryController@getGallery')->name('index');
 Route::post('/photo/post','GalleryController@postPhotoArticle')->name('gallery-article-post');
 Route::post('/gallery/comment/post','GalleryController@postReply')->name('gallery-reply');
+Route::post('/gallery/photo/like','GalleryController@postLike')->name('like-photo');
+Route::get('/gallery/photo/article/{article_id?}','GalleryController@getPhotoArticle')->name('watch-photo');
 
 Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 		

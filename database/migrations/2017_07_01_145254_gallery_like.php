@@ -15,7 +15,7 @@ class GalleryLike extends Migration
     {
         Schema::create('gallery_like', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable();
             $table->boolean('like');
             $table->integer('article_id');
             $table->timestamps();
