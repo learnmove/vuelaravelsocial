@@ -62,7 +62,7 @@
       50%
     </div>
   </div>
-<button  class="btn btn-primary submit-btn">  送出</button>
+<button  class="btn btn-primary submit-btn" >  送出</button>
       </form>
     </div>
   </div>

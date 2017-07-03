@@ -29,6 +29,6 @@ class FriendTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('friend');
+        Schema::dropIfExists('friends');
     }
 }

@@ -29,6 +29,7 @@
 @stop
 @section('javascript')
 <!-- custom jq -->
+@yield('javascript')
 <script>
 function readUrl(input){
   if(input.files&&input.files[0]){
@@ -55,9 +56,8 @@ readUrl(this);
            $progress=document.getElementById('progressbar');
            $progress.style.width='100%';
            $progress.innerHTML='100% 傳輸完成';
-         document.getElementById('content').value=res.data.link;
+           $('#imgsite').val(res.data.link);
          
-            console.log(res.data.link);
         }
     };
 

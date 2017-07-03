@@ -80,27 +80,25 @@
                       <div class="wrap-user-function">
 
 
+                @if(!Route::current()->parameters())
                         @if(Auth::check()&&Auth::user()->account!=$article->user->account)
-                      @if(Auth::user()->hasFriendRequestPending($article->user))
+                      @if($hasFriendRequestPendingArray->contains($article->user))
                      <a href="" class="btn btn-primary"><i class="fa  fa-bell-o
 " aria-hidden="true"></i>
 已邀請</a>
-                      @elseif(Auth::user()->isFriendsWith($article->user))
+                      @elseif($isFriendArray->contains($article->user)))
                        <a href="" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i>
 好朋友</a>
                       @else
 
-                       <a href="{{route('friend::send-invite',['invited_account'=>$article->user->account])}} " class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i>加入好友</a>
+                       <a href="#" id="friend-btn-{{$article->user->account}} " class="btn btn-primary friend-btn"><i class="fa fa-user-plus" aria-hidden="true"></i>加入好友</a>
                       @endif
                     @endif
-                     
-
-
-
-                        <a href="" class="btn btn-primary"><i class="fa fa-comments-o" aria-hidden="true"></i>
-                        傳送訊息</a>
-                        <a href="" class="btn btn-primary"><i class="fa fa-address-book" aria-hidden="true"></i>
-                        個人檔案</a>
+                  @endif
+                        <a href="{{route('get-user-album',['user_account'=>$article->user->account])}} " class="btn btn-primary"><i class="fa fa-address-book" aria-hidden="true"></i>
+                        個人相簿</a>
+                               <a href="{{route('blog::article-list',['user_account'=>$article->user->account])}} " class="btn btn-primary"><i class="fa fa-address-book" aria-hidden="true"></i>
+                        個人日記</a>
                       </div>
                     </div>
                     
@@ -142,12 +140,11 @@
                             <div class="comment-user-avatar">
                               <div class="user-function">
                                 <div class="wrap-user-function">
-                                  <a href="" class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i>
-                                  加入好友</a>
-                                  <a href="" class="btn btn-primary"><i class="fa fa-comments-o" aria-hidden="true"></i>
-                                  傳送訊息</a>
-                                  <a href="" class="btn btn-primary"><i class="fa fa-address-book" aria-hidden="true"></i>
-                                  個人檔案</a>
+                                
+                                  <a href="{{route('get-user-album',['user_account'=>$reply->user->account])}}" class="btn btn-primary"><i class="fa fa-address-book" aria-hidden="true"></i>
+                                  個人相簿</a>
+                                   <a href="{{route('blog::article-list',['user_account'=>$reply->user->account])}}" class="btn btn-primary"><i class="fa fa-address-book" aria-hidden="true"></i>
+                                  個人日記</a>
                                 </div>
                               </div>
                               <img class="img-circle " src="  {{asset('user/avatars/'.$reply->user->avatar)}}">
@@ -437,9 +434,19 @@
     });
 
 // end large
-
-
-
+// friend ajax
+$('.friend-btn').click(function(event){
+  var that=$(this);
+  event.preventDefault();
+  var account=$(this).attr('id').replace('friend-btn-','');
+  $.ajax({
+    method:'GET',
+    url:'{{route('friend::send-invite')}}'+'/'+account,
+  }).done(function(msg){
+      that.text(msg);
+  });
+});
+// end friend ajax
 
 
 
@@ -459,7 +466,7 @@
            $progress.innerHTML='100% 傳輸完成';
          document.getElementById('imgsite').value=res.data.link;
       document.getElementById('submit').removeAttribute("disabled");
-         
+            
             console.log(res.data.link);
         }
     };

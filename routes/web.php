@@ -19,7 +19,7 @@ Route::post('/gallery/photo/like','GalleryController@postLike')->name('like-phot
 Route::get('/gallery/photo/article/{article_id?}','GalleryController@getPhotoArticle')->name('watch-photo');
 
 Route::get('/gallery/photo/article/{article_id?}/detail','GalleryController@RenderArticleDetail')->name('get-photo-detail');
-
+Route::get('/gallery/album/{user_account}','GalleryController@RenderUserGallery')->name('get-user-album');
 Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 		
 
@@ -65,7 +65,7 @@ Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 
 
 // discuss
-Route::group(['prefix'=>'discuss','as'=>'discuss::','middleware'=>'auth'],function(){
+Route::group(['prefix'=>'discuss','as'=>'discuss::'],function(){
 		Route::get('/list/{category_id?}',
 		'DiscussController@getDiscussList'
 	)->name('list');
@@ -115,9 +115,9 @@ Route::group(['prefix'=>'friend','as'=>'friend::'],
 
 		Route::get('/accept/{friend_id}','FriendController@acceptFriend')->name('accept');
 
-		Route::get('/addFriend/{invited_account}','FriendController@addFriend')
+		Route::get('/addFriend/{invited_account?}','FriendController@addFriend')
 			->name('send-invite');
-			
+
 	Route::get('/invite/{user_account}','FriendController@getInvitePage')
 		->name('invite');
 		;

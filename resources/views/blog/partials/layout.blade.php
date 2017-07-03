@@ -59,21 +59,20 @@
                     </div>
                   </div>
                   <ul class="many-link-site">
-                    <li><a href=" ">Mypage</a></li>
-                    <li><a href="">photo</a></li>
-                    <li><a href="{{route('blog::article-list',[$user])}}">blog</a></li>
-                    <li><a href="">Friend</a></li>
+                    <li><a href="#">相簿</a></li>
+                    <li><a href="{{route('blog::article-list',[$user])}}">日記</a></li>
+                    <li><a href="{{route('friend::user-friend',['user_account'=>$user])}}">朋友</a></li>
                     @if(Auth::check()&&Auth::user()->account!=$user)
-                      @if(Auth::user()->hasFriendRequestPending($user_entity))
-                      <li><a href="" class="btn btn-primary btn-xs add-friend"><i class="fa  fa-bell-o
-" aria-hidden="true"></i>
-已邀請</a></li>
-                      @elseif(Auth::user()->isFriendsWith($user_entity))
-                        <li><a href="" class="btn btn-primary btn-xs add-friend"><i class="fa fa-check" aria-hidden="true"></i>
-好朋友</a></li>
+                      @if(Auth::user()->hasFriendRequestPending($user_entity)->count())
+                      <li><a href="#" class="btn btn-primary btn-xs add-friend"><i class="fa  fa-bell-o
+                       " aria-hidden="true"></i>
+                        已邀請</a></li>
+                      @elseif(Auth::user()->isFriendsWith($user_entity->id)->count())
+                        <li><a href="#" class="btn btn-primary btn-xs add-friend"><i class="fa fa-check" aria-hidden="true"></i>
+                        好朋友</a></li>
                       @else
 
-                        <li><a href="{{route('friend::send-invite',['invited_account'=>$user])}} " class="btn btn-primary btn-xs add-friend"><i class="fa fa-user-plus" aria-hidden="true"></i>加入好友</a></li>
+                        <li><a href="#" class="btn btn-primary btn-xs add-friend friend-btn"><i class="fa fa-user-plus" aria-hidden="true"></i>加入好友</a></li>
                       @endif
                     @endif
 
@@ -185,10 +184,7 @@
 
       <!-- uploadimage -->
     @section('javascript')
-    <script type="text/javascript">
-      
-
-    </script>
+  
       <script>
       function readUrl(input){
       if(input.files&&input.files[0]){
@@ -209,6 +205,18 @@ $(function() {
       $('#enlargeImageModal').modal('show');
     });
 });
+// friend ajax
+$('.friend-btn').click(function(event){
+  var that=$(this);
+  event.preventDefault();
+  $.ajax({
+    method:'GET',
+    url:'{{route('friend::send-invite',['user_account'=>$user])}}',
+  }).done(function(msg){
+      that.text(msg);
+  });
+});
+// end friend ajax
 
 
 

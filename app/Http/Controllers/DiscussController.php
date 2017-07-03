@@ -72,6 +72,9 @@ class DiscussController extends Controller
     		]);
     	if(!Auth::check()){
     		$rq['user_id']=1;
+    	}else{
+    		$rq['user_id']=Auth::user()->id;
+
     	}
     	$rq['article_id']=$article_id;
     	DiscussArticleReply::create($rq->all());

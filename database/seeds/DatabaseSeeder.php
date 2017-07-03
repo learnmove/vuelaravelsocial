@@ -43,12 +43,18 @@ class DatabaseSeeder extends Seeder
         $discuss_article->replies()->save(factory(App\DiscussArticleReply::class)->make());
        
 
-// gallery article
+
+
+
+                // gallery article
        $gallery_article= factory(App\GalleryArticle::class)->make();
         $u->gallery()->save($gallery_article);
 // gallery reply
        $gallery_reply= factory(App\GalleryReply::class)->make();
         $gallery_article->ownReply()->save($gallery_reply);
+
+
+
 
 
 

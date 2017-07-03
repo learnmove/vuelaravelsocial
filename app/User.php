@@ -108,12 +108,12 @@ class User extends Authenticatable
         return $this->friendOf()->wherePivot('accepted',false)->get();
     }
 // 傳入的這個人是否已經被我邀請了,有的話true正等待他接受
-    public function hasFriendRequestPending(User $user){
-        return (bool) $this->friendRequestsPending()->where('id',$user->id)->count();
+    public function hasFriendRequestPending($usersId){
+        return  $this->friendRequestsPending()->whereIn('id',$usersId);
     }
 // 傳入的這個人是否已經邀請我了,有的話true正等待我接受
-    public function hasFriendRequestReceived(User $user){
-        return (bool) $this->friendRequests()->where('id',$user->id)->count();
+    public function hasFriendRequestReceived($usersId){
+        return  $this->friendRequests()->whereIn('id',$usersId);
     }
     // 發出邀請
     public function addFriend(User $user){
@@ -124,7 +124,7 @@ class User extends Authenticatable
         return $this->friendRequests()->where('id',$user->id)->first()->pivot->update(['accepted'=>true]);
     }
     // 我邀請的人跟邀請我的人已接受中查詢傳進來這個人是不是朋友，
-    public function isFriendsWith(User $user){
-        return (bool)$this->friends()->where('id',$user->id)->count();
+    public function isFriendsWith($usersId){
+        return $this->friends()->whereIn('id',$usersId);
     }
 }

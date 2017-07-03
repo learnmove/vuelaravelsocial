@@ -32,7 +32,7 @@ class FriendController extends Controller
     public function addFriend($invited_account){
     	$invited_user=User::where('account',$invited_account)->first();
     	Auth::user()->addFriend($invited_user);
-    	return redirect()->back();
+    	return response()->json(['已邀請']);
     }
 
     public function acceptFriend($friend_id){

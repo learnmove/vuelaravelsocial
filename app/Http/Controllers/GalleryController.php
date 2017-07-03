@@ -11,13 +11,40 @@ use App\GalleryReply;
 use App\GalleryLike;
 use App\GalleryShare;
 use Cookie;
+use Route;
 class GalleryController extends Controller
 {
     //
     public function getGallery(){
 $articles=$this->getArticles();
+if(Auth::check()){
+  $auth_user=User::find(Auth::user()->id);
+}else{
+  $auth_user='';
+}
 
-    return view('index',compact('articles'));
+if(Auth::check()){
+
+
+$users=[];
+foreach($articles as $article){
+
+  array_push($users,$article->user->id);
+
+}
+
+
+  $isFriendArray=Auth::user()->isFriendsWith($users);
+$hasFriendRequestPendingArray=Auth::user()->hasFriendRequestPending($users);
+
+
+
+}
+
+
+
+
+    return view('index',compact('articles','auth_user','hasFriendRequestPendingArray','isFriendArray'));
     }
     public function getArticles(){
     	return GalleryArticle::with(['user','ownReply.user','ownLike','ownShare'])->orderBy('created_at','desc')->paginate(15);
@@ -130,6 +157,16 @@ if ($rq->hasFile('little_image')) {
       $article=$this->getArticle($article_id);
       $designer=$this->getUser($article->user_id)->designer;
       return view('photo-detail',compact('article','designer'));
+    }
+    public function RenderUserGallery($user_account){
+      $articles=$this->getUserArticles($user_account);
+    return view('index',compact('articles'));
+
+    }
+      public function getUserArticles($user_account){
+
+        $user=User::where('account',$user_account)->first();
+      return GalleryArticle::with(['user','ownReply.user','ownLike','ownShare'])->where('user_id',$user->id)->orderBy('created_at','desc')->paginate(15);
     }
 
 

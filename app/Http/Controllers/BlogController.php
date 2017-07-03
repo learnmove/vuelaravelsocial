@@ -36,6 +36,7 @@ class BlogController extends Controller
     public function getBlogArticle($user,$article_site){
 
         $stuff=$this->getBlogStuff($user);
+        ;
     	$article=BlogArticle::where('article_site',$article_site)
     	->first()
     	;
