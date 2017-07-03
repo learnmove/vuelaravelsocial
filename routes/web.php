@@ -65,7 +65,7 @@ Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 
 
 // discuss
-Route::group(['prefix'=>'discuss','as'=>'discuss::'],function(){
+Route::group(['prefix'=>'discuss','as'=>'discuss::','middleware'=>'auth'],function(){
 		Route::get('/list/{category_id?}',
 		'DiscussController@getDiscussList'
 	)->name('list');
@@ -107,13 +107,26 @@ Route::group(['middleware'=>'guest'],function(){
 });
 // friend
 Route::group(['prefix'=>'friend','as'=>'friend::'],
+
+
 	function(){
-		Route::get('my',['as'=>'my',function(){
-			return view('friend.my-friends');
-		}]);
-		Route::get('invite',['as'=>'invite',function(){
-			return view('friend.my-friends-invite');
-		}]);
+
+		Route::group(['middleware'=>'auth'],function(){
+
+		Route::get('/accept/{friend_id}','FriendController@acceptFriend')->name('accept');
+
+		Route::get('/addFriend/{invited_account}','FriendController@addFriend')
+			->name('send-invite');
+			
+	Route::get('/invite/{user_account}','FriendController@getInvitePage')
+		->name('invite');
+		;
+		});
+		Route::get('/list/{user_account}','FriendController@getIndex')->name('user-friend');
+
+		
+	
+		
 });
 
 Route::group(['middleware'=>'auth'],function(){
@@ -121,3 +134,4 @@ Route::group(['middleware'=>'auth'],function(){
 	->name('logout')
 	;
 });
+// friend list

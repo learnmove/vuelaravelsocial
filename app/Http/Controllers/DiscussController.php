@@ -34,6 +34,11 @@ class DiscussController extends Controller
 		return DiscussArticleTag::all();
     }
     public function postDiscussArticle(Request $rq){
+    	$this->validate($rq,[
+    			'title'=>'required',
+    			'content'=>'required',
+
+    		]);
     	if(!Auth::check()){
     		$rq['user_id']=1;
     	}
@@ -62,6 +67,9 @@ class DiscussController extends Controller
    //      return $html;   }
 // }
     public function postDiscussArticleReply(Request $rq ,$article_id){
+    		$this->validate($rq,[
+    			'content'=>'required',
+    		]);
     	if(!Auth::check()){
     		$rq['user_id']=1;
     	}

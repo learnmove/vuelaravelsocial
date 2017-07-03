@@ -81,6 +81,50 @@ class User extends Authenticatable
     public function posted_like(){
         return $this->hasMany('App\GalleryLike','user_id','id');
     }
+// friend
 
-
+    // 我是user_id 也就是被邀請人 取得邀請我的人資料關聯
+    // (包括已經成為朋友)
+    public function friendOfMine(){
+        return $this->belongsToMany('App\User','friends','user_id','friend_id');
+    }
+    // 我是friend_id也就是邀請人 取得我想邀請人的資料關聯
+    // (包括已經成為朋友)
+   public function friendOf(){
+        return $this->belongsToMany('App\User','friends','friend_id','user_id');
+    }
+    // 有哪些已經成為朋友朋友
+    public function friends(){
+        return $this->friendOfMine()->wherePivot('accepted',true)->get()
+        ->merge($this->friendOf()->wherePivot('accepted',true)->get());
+        ;
+    }
+    // 有朋友邀請(取得還未成為朋友的人資料//我是user_id)
+    public function friendRequests(){
+        return $this->friendOfMine()->wherePivot('accepted',false)->get();
+    }
+    // 我是邀請人(取得被我邀請人的資料)
+    public function friendRequestsPending(){
+        return $this->friendOf()->wherePivot('accepted',false)->get();
+    }
+// 傳入的這個人是否已經被我邀請了,有的話true正等待他接受
+    public function hasFriendRequestPending(User $user){
+        return (bool) $this->friendRequestsPending()->where('id',$user->id)->count();
+    }
+// 傳入的這個人是否已經邀請我了,有的話true正等待我接受
+    public function hasFriendRequestReceived(User $user){
+        return (bool) $this->friendRequests()->where('id',$user->id)->count();
+    }
+    // 發出邀請
+    public function addFriend(User $user){
+        return $this->friendOf()->attach($user->id);
+    }   
+    // 接受邀請
+    public function acceptFriendRequest(User $user){
+        return $this->friendRequests()->where('id',$user->id)->first()->pivot->update(['accepted'=>true]);
+    }
+    // 我邀請的人跟邀請我的人已接受中查詢傳進來這個人是不是朋友，
+    public function isFriendsWith(User $user){
+        return (bool)$this->friends()->where('id',$user->id)->count();
+    }
 }

@@ -13,6 +13,7 @@
     @yield('css')
   </head>
   <body>
+  
   <!-- navigation -->
   @include('partials.navigation')
   <!-- content -->

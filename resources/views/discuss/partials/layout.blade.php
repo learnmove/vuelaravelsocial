@@ -6,6 +6,15 @@
 @section('content')
         <!-- discuss -->
         <div class="container">
+           @if(Session::has('errors'))
+            <div class="alert alert-danger">
+              <ul>
+                @foreach($errors->all() as $error)
+                <li>{{$error}} </li>
+                @endforeach
+              </ul>
+            </div>
+            @endif
               <ul class="nav nav-pills">
               <li class=""><a  href="{{route('discuss::list')}} ">全部 </a></li>
               @foreach($tags as $tag)
@@ -46,8 +55,8 @@ readUrl(this);
            $progress=document.getElementById('progressbar');
            $progress.style.width='100%';
            $progress.innerHTML='100% 傳輸完成';
-         document.getElementById('imgsite').value=res.data.link;
-
+         document.getElementById('content').value=res.data.link;
+         
             console.log(res.data.link);
         }
     };

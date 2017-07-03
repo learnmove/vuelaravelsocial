@@ -27,6 +27,13 @@ $articles=$this->getArticles();
 
  		$useraccount='';
 
+      $this->validate($rq,[
+        'title'=>'required',
+        'content'=>'required',
+        'description'=>'required',
+
+        ]);
+
     	if(Auth::check()){
  		$rq['user_id']=Auth::user()->id;
  		$useraccount=Auth::user()->account;

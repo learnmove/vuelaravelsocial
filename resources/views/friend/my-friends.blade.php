@@ -6,13 +6,14 @@
         <!-- content -->
         <div class="self-container "> 
      <ul class="nav nav-tabs">
-  <li class="active"><a href="{{route('friend::my')}} ">好友名單</a></li>
-  <li class=""><a href="{{route('friend::invite')}}" >朋友邀情</a></li>
-
+  <li class="active"><a href="{{route('friend::user-friend',['$user->account'])}} ">好友名單</a></li>
+  @if(Auth::check()&&Auth::user()->account==$user->account)
+  <li class=""><a href="{{route('friend::invite',['user_account'=>$user->account])}}" >朋友邀情</a></li>
+@endif
 </ul>
             <div class="top"> 
              好友名單
-            <span class="friend-count">(55)  </span>
+            <span class="friend-count">({{$friends->count()}})  </span>
             </div>
             <div class="list ">  
             <table class="table table-hover">
@@ -24,15 +25,16 @@
               </tr>
             </thead>
             <tbody class=""> 
+            @foreach($friends as $friend )
              <tr>
                <td class="friend-block">
-                 <a href="">
+                 <a href="{{route('blog::article-list',['user'=>$friend->account])}} ">
                      <div class="avatar"> 
-
-                 <img class="img-circle" src=" https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/14184568_1110549169035631_23306978654507606_n.jpg?oh=f132424f61fde3648aa47a287c52b2f4&oe=59E9F754">
+            
+                 <img class="img-circle" src="{{asset('user/avatars/'.$friend->avatar)}} ">
                  </div>
                  <div class="friend-name">  
-                 張均豪李孟軒軒
+                {{$friend->designer}}
                  </div>
                    
                  </a>
@@ -48,7 +50,7 @@
                 </div>
               </td>
              </tr>
-            
+            @endforeach
              
             </tbody>
              </table>

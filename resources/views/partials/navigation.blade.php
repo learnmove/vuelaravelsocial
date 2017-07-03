@@ -54,7 +54,7 @@
                  {{Auth::user()->account}}
                </li>
                 <li class="bottom-border"><a href="{{route('blog::article-list',Auth::user()->account)}}">我的日記</a></li>
-                <li class="bottom-border"><a href="{{route('friend::my')}}">我的朋友</a></li>
+                <li class="bottom-border"><a href="{{route('friend::user-friend',['user_account'=>Auth::user()->account])}}">我的朋友</a></li>
                 <li class="bottom-border"><a href="./myblog-article.html">我的作品</a></li>
               </ul></li>
                  <li class="bottom-border"><a href="{{route('logout')}} ">登出</a></li>

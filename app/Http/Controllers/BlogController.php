@@ -29,7 +29,8 @@ class BlogController extends Controller
 		with('articles',$articles)->
 		with('visiters',$stuff['visiters'])->
 		with('articles_latest',$stuff['articles_latest'])->
-        with('recent_replies',$stuff['recent_replies']);
+        with('recent_replies',$stuff['recent_replies'])->
+        with('user_entity',$stuff['user_entity'])
 		;
     }
     public function getBlogArticle($user,$article_site){
@@ -54,7 +55,8 @@ class BlogController extends Controller
 		with('article',$article)->
 		with('articles_latest',$stuff['articles_latest'])->
         with('replies',$replies)->
-        with('recent_replies',$stuff['recent_replies']);
+        with('recent_replies',$stuff['recent_replies'])->
+        with('user_entity',$stuff['user_entity']);
 
 
 		
@@ -106,7 +108,7 @@ class BlogController extends Controller
     }
  
     	$blog=$useraccount->blog;
-    	return ['blog'=>$blog,'avatar'=>$avatar,'user_id'=>$user_id,'articles_latest'=>$articles_latest,'visiters'=>$visiters,'recent_replies'=>$recent_replies];
+    	return ['blog'=>$blog,'avatar'=>$avatar,'user_id'=>$user_id,'articles_latest'=>$articles_latest,'visiters'=>$visiters,'recent_replies'=>$recent_replies,'user_entity'=>$useraccount];
     }
     public function getArticleReply($article_id){
         $replies=BlogArticleReply::with('user')->where('blog_article_id',$article_id)->get();

@@ -11,6 +11,9 @@ class BlogArticleReplyController extends Controller
 {
     //
  	public function postReply($user,$article_id,Request $rq){
+ 		$this->validate($rq,[
+ 			'content'=>'required'
+ 			]);
  		$blog_user=User::where('account',$user)->first();
  		if(Auth::check()){
  		$rq['user_id']=Auth::user()->id;

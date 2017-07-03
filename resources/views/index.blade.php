@@ -17,10 +17,21 @@
       @section('content')
         <div class="content">
           <div class="creator-block">
+            @if(Session::has('errors'))
+            <div class="alert alert-danger">
+              <ul>
+                @foreach($errors->all() as $error)
+                <li>{{$error}} </li>
+                @endforeach
+              </ul>
+            </div>
+            @endif
             <div class="columns">
               
-              
+
+         
        @foreach($articles as $article)
+
    <div class="article-work-item">
                 <div class="photo-block">
                 <a href="#"  class="photo" id="photo-{{$article->id}}">  <img class="photo content-img" id="og-photo-{{$article->id}}" src="{{asset('/user/gallery/'.$article->user->account.'/'.$article->image_xs)}}"></a>
@@ -67,8 +78,25 @@
                     </div>
                     <div class="user-function">
                       <div class="wrap-user-function">
-                        <a href="" class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i>
-                        加入好友</a>
+
+
+                        @if(Auth::check()&&Auth::user()->account!=$article->user->account)
+                      @if(Auth::user()->hasFriendRequestPending($article->user))
+                     <a href="" class="btn btn-primary"><i class="fa  fa-bell-o
+" aria-hidden="true"></i>
+已邀請</a>
+                      @elseif(Auth::user()->isFriendsWith($article->user))
+                       <a href="" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i>
+好朋友</a>
+                      @else
+
+                       <a href="{{route('friend::send-invite',['invited_account'=>$article->user->account])}} " class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i>加入好友</a>
+                      @endif
+                    @endif
+                     
+
+
+
                         <a href="" class="btn btn-primary"><i class="fa fa-comments-o" aria-hidden="true"></i>
                         傳送訊息</a>
                         <a href="" class="btn btn-primary"><i class="fa fa-address-book" aria-hidden="true"></i>
@@ -168,7 +196,7 @@
                       <input type="text" maxlength="8" placeholder="8字以內" class="form-control" name="title" id="" class="post-title"></div>
                       <div class="form-group">
                         <label for="comment">作品簡述</label>
-                        <textarea type="text" max class="form-control"  name="description" maxlength="36" placeholder="每行最多12個字/36字內"></textarea>
+                        <input type="text"  class="form-control"  name="description" maxlength="36" placeholder="每行最多12個字/36字內">
                       </div>
                     
                       <div class="form-group">
