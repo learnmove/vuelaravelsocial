@@ -36,7 +36,7 @@ foreach($articles as $article){
 
   $isFriendArray=Auth::user()->isFriendsWith($users);
 $hasFriendRequestPendingArray=Auth::user()->hasFriendRequestPending($users);
-
+$hasFriendRequestReceivedArray=Auth::user()->hasFriendRequestReceived($users);
 
 
 }
@@ -44,7 +44,7 @@ $hasFriendRequestPendingArray=Auth::user()->hasFriendRequestPending($users);
 
 
 
-    return view('index',compact('articles','auth_user','hasFriendRequestPendingArray','isFriendArray'));
+    return view('index',compact('articles','auth_user','hasFriendRequestPendingArray','isFriendArray','hasFriendRequestReceivedArray'));
     }
     public function getArticles(){
     	return GalleryArticle::with(['user','ownReply.user','ownLike','ownShare'])->orderBy('created_at','desc')->paginate(15);

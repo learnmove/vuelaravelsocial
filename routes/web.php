@@ -39,6 +39,9 @@ Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 				;
 			Route::post('{user}/custom','BlogController@postChangeBlogStyle')
 				->name('custom-edit');
+		//css
+				Route::get('{user_account}/css','BlogController@getWriteCss')->name('get-css');
+				Route::post('{user_account}/css','BlogController@postWriteCss')->name('post-css');
 		});
 
 
@@ -114,7 +117,7 @@ Route::group(['prefix'=>'friend','as'=>'friend::'],
 
 		Route::group(['middleware'=>'auth'],function(){
 
-		Route::get('/accept/{friend_id}','FriendController@acceptFriend')->name('accept');
+		Route::get('/accept/{friend_id?}','FriendController@acceptFriend')->name('accept');
 
 		Route::get('/addFriend/{invited_account?}','FriendController@addFriend')
 			->name('send-invite');
@@ -134,4 +137,5 @@ Route::group(['middleware'=>'auth'],function(){
 	->name('logout')
 	;
 });
-// friend list
+// search
+Route::post('/search','SearchController@postKeyword')->name('post-search');

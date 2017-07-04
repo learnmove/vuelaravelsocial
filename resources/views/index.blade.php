@@ -89,6 +89,9 @@
                       @elseif($isFriendArray->contains($article->user)))
                        <a href="" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i>
 好朋友</a>
+                     @elseif($hasFriendRequestReceivedArray->contains($article->user))
+                           <li><a href="#" class="btn btn-primary btn-xs accept_btn add-friend accept_btn" id="friend-{{$article->user->id}}"><i class="fa fa-check" aria-hidden="true"></i>
+                        接受好友</a></li>
                       @else
 
                        <a href="#" id="friend-btn-{{$article->user->account}} " class="btn btn-primary friend-btn"><i class="fa fa-user-plus" aria-hidden="true"></i>加入好友</a>
@@ -465,7 +468,19 @@ $('.friend-btn').click(function(event){
 });
 // end friend ajax
 
-
+// accept friend
+  $('.accept_btn').click(function(event){
+  var that=$(this);
+  event.preventDefault();
+  var id=$(this).attr('id').replace('friend-','');
+  $.ajax({
+    method:'GET',
+    url:'{{route('friend::accept')}}'+'/'+id,
+  }).done(function(msg){
+      that.text(msg);
+  });
+});
+// end accept friend
 
 
             </script>

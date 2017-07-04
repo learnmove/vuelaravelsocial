@@ -10,22 +10,22 @@
            <div class="banner">
           <div class="form-group">
             <label>最上面的照片(網址)</label>
-            <input type="text" name="banner" id="" class="form-control" placeholder="http://i1054.photobucket.com/albums/s499/vadimzbanok/1327.jpg" ">
+            <input type="text" name="banner" id="" class="form-control" placeholder="http://i1054.photobucket.com/albums/s499/vadimzbanok/1327.jpg" value="{{$blog->banner}}">
           </div>
           <div class="form-group">
             <label>日記主題</label>
-            <input type="text" name="banner_title" id="" class="form-control" placeholder="豪豪的心情札記" value="">
+            <input type="text" name="banner_title" id="" class="form-control" placeholder="豪豪的心情札記" value="{{$blog->banner_title}}">
           </div>
              <div class="form-group">
             <label>日記敘述</label>
-            <input type="text" name="banner_text" id="" class="form-control" placeholder="不能說的都在這邊說" >
+            <input type="text" name="banner_text" id="" class="form-control" value="{{$blog->banner_text}}" placeholder="不能說的都在這邊說" >
           </div>
         </div>
 
           <div class="banner">
           <div class="form-group">
             <label>網站名稱</label>
-            <input type="text" name="blog_title" id="" class="form-control" placeholder="心事小窩" >
+            <input type="text" name="blog_title" id="" class="form-control"  value="{{$blog->blog_title}}" placeholder="心事小窩" >
           </div>
 
         </div>
@@ -33,18 +33,19 @@
          <div class="music">
           <div class="form-group">
             <label>音樂(網址)</label>
-            <input type="text" name="music" id="" class="form-control" placeholder="http://xxx.mp3">
+            <input type="text" name="music" id="" class="form-control" placeholder="http://xxx.mp3" value="{{$blog->music}}">
           </div>
  <div class="form-group">
             <label>音樂名稱</label>
-            <input type="text" name="music_name" id="" class="form-control" placeholder="張均豪-你是我的眼">
+            <input type="text" name="music_name" id="" class="form-control" placeholder="張均豪-你是我的眼" value="{{$blog->music_name}}">
           </div>
           
         </div>
           <div class="css">
             <label>日記樣式</label>
 
-         <select name="css">
+         <select name="css" >
+           <option style="color:red;" value="{{Auth::user()->account}} ">使用自訂css</option>
            <option value="azure">天空湛藍</option>
            <option value="black">質感黑</option>
            <option value="black-border">硬條黑</option>
@@ -78,9 +79,10 @@
 
 
 
+
          </select>
           
-          
+          <a class="btn btn-primary" href="{{route('blog::get-css',['user_account'=>Auth::user()->account])}}">自訂css樣式</a>
         </div>
         <button type="submit" class="btn btn-primary">修改</button>
         </form>
@@ -89,4 +91,11 @@
         </div>
         @stop
         <!-- jq -->
-  
+  @section('javascript')
+
+  <script type="text/javascript">
+    $("select").val("{{$blog->css}}");
+    $("select").val("{{$blog->css}}");
+
+  </script>
+  @stop

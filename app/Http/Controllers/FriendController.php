@@ -40,9 +40,11 @@ class FriendController extends Controller
     public function acceptFriend($friend_id){
     	$friend=User::find($friend_id);
     	Auth::user()->acceptFriendRequest($friend);
-    	return redirect()->back();
+    	return response()->json(['已接受']);
+    	
     }
     public function postStatus(Request $rq){
+    	$this->validate($rq,['content'=>'required|max:49'],['content.required'=>'請填寫狀態','content.max'=>'超過49字']);
     	$user_id=$rq['user_id']=Auth::user()->id;
     	Status::updateOrCreate(['user_id'=>$user_id],['content'=>$rq->input('content')]);
     	return redirect()->back();

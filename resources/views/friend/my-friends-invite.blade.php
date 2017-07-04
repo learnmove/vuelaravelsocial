@@ -30,7 +30,7 @@
                  <a href="">
                      <div class="avatar"> 
 
-                 <img class="img-circle" src=" https://scontent-tpe1-1.xx.fbcdn.net/v/t1.0-9/14184568_1110549169035631_23306978654507606_n.jpg?oh=f132424f61fde3648aa47a287c52b2f4&oe=59E9F754">
+                 <img class="img-circle" src="{{asset('user/avatars/'.$request->avatar)}}">
                  </div>
                  <div class="friend-name">  
                  {{$request->designer}}
@@ -42,7 +42,7 @@
                <td class="status"> 
                
                 <div class="status-content">  
-               <a class="btn btn-primary" href="{{route('friend::accept',['friend_id'=>$request->id])}} "> 接受好友</a>
+               <a class="btn btn-primary accept_btn" href="#" id="friend-{{$request->id}}"> 接受好友</a>
                 
 
                 </div>
@@ -70,4 +70,23 @@
               </div>
             </div>
           </div>
+@stop
+@section('javascript')
+<script type="text/javascript">
+
+// accept friend
+  $('.accept_btn').click(function(event){
+  var that=$(this);
+  event.preventDefault();
+  var id=$(this).attr('id').replace('friend-','');
+  $.ajax({
+    method:'GET',
+    url:'{{route('friend::accept')}}'+'/'+id,
+  }).done(function(msg){
+      that.text(msg);
+  });
+});
+// end accept friend
+</script>
+
 @stop

@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+            　/*
+   整個頁面
+　*/
+ .all-preference {
+  font-family: simhei,Comic Sans MS,arial,helvetica,sans-serif;
+  background-color: #F4FCE6;
+  max-width: 1500px; }
+
+　/*
+   右邊的區塊
+　*/
+.block-background {
+  background-color: #BCEAEA; }
+
+　/*
+   最上面圖片區塊的背景和字
+　*/
+.jumbotron-preference {
+  color: black;
+  background: transparent; }
+.jumbotron-text {
+  color: #288EB0; }
+　/*
+
+   主題欄的區塊:如最新文章,回覆
+　*/
+.top-tab-preference {
+  background-color: #CCEEED;
+  color: #288EB0; }
+　
+　/*
+  加朋友的按鈕
+　*/
+.add-friend {
+  background: #FFFFFF;
+  border: 0px;
+  color: black; }
+
+　/*
+
+  超連結的字
+　*/
+a {
+  color: #888; }
+　/*
+ 誰來我家
+　*/
+.come-count-block {
+  color: black; }
+
+　/*
+  一篇文章的區塊
+　*/
+.article-preference {
+  background-color: transparent;
+  color: black; }
+　/*
+  放文章的區塊
+　*/
+.article-block {
+  background-color: transparent; }
+　/*
+  放文章的內容區塊
+　*/
+.article-short-content{
+color:black;
+}
+/*
+   文章的題目區塊:如今天好快樂
+　*/
+.article-title {
+  color: #288EB0;
+  background-color: transparent; }
+　/*
+  不包含上面圖片和字的區塊
+　*/
+.content-block {
+  background-color: #E5F3F3; }
+          

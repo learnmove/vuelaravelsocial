@@ -127,7 +127,8 @@ class BlogController extends Controller
 
 
     public function getChangeBlogStyle(){
-        return view('blog.styleblog');
+       $blog =Blog::where('user_id',Auth::user()->id)->first();
+        return view('blog.styleblog',compact('blog'));
     }
      public function postChangeBlogStyle(Request $rq){
         $user=Auth::user();
@@ -136,4 +137,25 @@ class BlogController extends Controller
        return redirect()->route('blog::article-list',['user'=>$user->account]);
 
 }
+    public function getWriteCss($user_account){
+
+       
+    $css=file_get_contents(public_path('user/css/'.$user_account.'/'.'custom-blog.css'));
+        return view('blog.write-style',compact('css'));
+    }
+    public function postWriteCss(Request $rq){
+        if((bool)$rq['restore']){
+        $css=file_get_contents(public_path('user/css/custom-blog.css'));
+        file_put_contents(public_path('user/css/'.Auth::user()->account.'/'.'custom-blog.css'),$css);
+        }else{
+             file_put_contents(public_path('user/css/'.Auth::user()->account.'/'.'custom-blog.css'),$rq['css']);
+
+             
+        }
+         return redirect()->route('blog::article-list',['user'=>Auth::user()->account]); 
+        
+
+    }
+
+
 }

@@ -70,9 +70,13 @@
                       @elseif(Auth::user()->isFriendsWith($user_entity->id)->count())
                         <li><a href="#" class="btn btn-primary btn-xs add-friend"><i class="fa fa-check" aria-hidden="true"></i>
                         好朋友</a></li>
+                      @elseif(Auth::user()->hasFriendRequestReceived($user_entity->id)->count())
+                           <li><a href="#" class="btn btn-primary btn-xs accept_btn add-friend"><i class="fa fa-check" aria-hidden="true"></i>
+                        接受好友</a></li>
+
                       @else
 
-                        <li><a href="#" class="btn btn-primary btn-xs add-friend friend-btn"><i class="fa fa-user-plus" aria-hidden="true"></i>加入好友</a></li>
+                        <li><a href="#" class="btn btn-primary btn-xs add-friend invite_btn"><i class="fa fa-user-plus" aria-hidden="true"></i>加入好友</a></li>
                       @endif
                     @endif
 
@@ -206,12 +210,22 @@ $(function() {
     });
 });
 // friend ajax
-$('.friend-btn').click(function(event){
+$('.invite_btn').click(function(event){
   var that=$(this);
   event.preventDefault();
   $.ajax({
     method:'GET',
     url:'{{route('friend::send-invite',['user_account'=>$user])}}',
+  }).done(function(msg){
+      that.text(msg);
+  });
+});
+$('.accept_btn').click(function(event){
+  var that=$(this);
+  event.preventDefault();
+  $.ajax({
+    method:'GET',
+    url:'{{route('friend::accept',['friend_id'=>$user_entity->id])}}',
   }).done(function(msg){
       that.text(msg);
   });

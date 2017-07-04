@@ -89,44 +89,30 @@
                   <li>
                     <div class="hotkey-title">熱門關鍵字：</div>
                   </li>
+                  @foreach($keywords as $keyword)
                   <li>
-                    <div class="now-hot ">正韓洋裝</div>
+                    <div class="now-hot cancel-li">{{$keyword->keyword}}</div>
                   </li>
-                  <li>
-                    <div class="now-hot ">hello kitty</div>
-                  </li>
-                  <li>
-                    <div class="now-hot">加大尺碼</div>
-                  </li>
-                  <li>
-                    <div class="now-hot ">nike運動鞋</div>
-                  </li>
-                  <li>
-                    <div class="now-hot cancel-li">new balance</div>
-                  </li>
-                  <li>
-                    <div class="now-hot cancel-li">畢業禮物</div>
-                  </li>
-                  <li>
-                    <div class="now-hot cancel-li">卡娜赫拉</div>
-                  </li>
-                  <li>
-                    <div class="now-hot cancel-li">蕾絲洋裝</div>
-                  </li>
+                  @endforeach
                 </ul>
                 
               </div>
               <div class="searchbar-main">
+                <form action="{{route('post-search')}}" method="post">
                 <div class="form-group">
-                  <input class="form-control searchbar" type="text" name="" id="">
+              
+                {{csrf_field()}}
+                  <input class="form-control searchbar" type="text" name="keyword" id="">
+             
                   
                 </div>
                 <div class="search-icon">
                   <i class="fa fa-search" aria-hidden="true"></i>
                 </div>
                 <div class="search-button">
-                  <button class="btn btn-primary strenth-button ">搜寶</button>
+                  <button type="submit" class="btn btn-primary strenth-button ">搜寶</button>
                 </div>
+                </form>
               </div>
             </div>
             <div class="col-md-2 ">2</div>

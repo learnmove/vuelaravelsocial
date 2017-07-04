@@ -5,6 +5,15 @@
 @section('content')
         <!-- content -->
         <div class="self-container "> 
+              @if(Session::has('errors'))
+            <div class="alert alert-danger">
+              <ul>
+                @foreach($errors->all() as $error)
+                <li>{{$error}} </li>
+                @endforeach
+              </ul>
+            </div>
+            @endif
      <ul class="nav nav-tabs">
   <li class="active"><a href="{{route('friend::user-friend',[$user->account])}} ">好友名單</a></li>
   @if(Auth::check()&&Auth::user()->account==$user->account)
