@@ -118,3 +118,8 @@ $factory->define(App\GalleryReply::class,function(Faker\Generator $faker){
         'user_id'=>rand(1,15)
     ];
 });
+$factory->define(App\Status::class,function(Faker\Generator $faker){
+    return [
+    'content'=>$faker->sentence
+    ];
+});

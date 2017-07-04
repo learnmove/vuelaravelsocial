@@ -59,7 +59,7 @@
                     </div>
                   </div>
                   <ul class="many-link-site">
-                    <li><a href="#">相簿</a></li>
+                    <li><a href="{{route('get-user-album',['user_account'=>$user])}} ">相簿</a></li>
                     <li><a href="{{route('blog::article-list',[$user])}}">日記</a></li>
                     <li><a href="{{route('friend::user-friend',['user_account'=>$user])}}">朋友</a></li>
                     @if(Auth::check()&&Auth::user()->account!=$user)

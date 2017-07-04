@@ -127,4 +127,13 @@ class User extends Authenticatable
     public function isFriendsWith($usersId){
         return $this->friends()->whereIn('id',$usersId);
     }
+
+        // friend end 
+
+    // status
+    public function Write_status(){
+        return $this->hasOne('App\Status','user_id','id');
+    }
+
+
 }

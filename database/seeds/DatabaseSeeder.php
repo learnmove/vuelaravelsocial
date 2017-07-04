@@ -54,8 +54,9 @@ class DatabaseSeeder extends Seeder
         $gallery_article->ownReply()->save($gallery_reply);
 
 
-
-
+// status
+        $status=factory(App\Status::class)->make();
+        $u->Write_status()->save($status);
 
 
 

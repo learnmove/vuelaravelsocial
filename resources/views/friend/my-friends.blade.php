@@ -6,7 +6,7 @@
         <!-- content -->
         <div class="self-container "> 
      <ul class="nav nav-tabs">
-  <li class="active"><a href="{{route('friend::user-friend',['$user->account'])}} ">好友名單</a></li>
+  <li class="active"><a href="{{route('friend::user-friend',[$user->account])}} ">好友名單</a></li>
   @if(Auth::check()&&Auth::user()->account==$user->account)
   <li class=""><a href="{{route('friend::invite',['user_account'=>$user->account])}}" >朋友邀情</a></li>
 @endif
@@ -25,6 +25,28 @@
               </tr>
             </thead>
             <tbody class=""> 
+             <tr>
+               <td class="friend-block">
+                 <a href="{{route('blog::article-list',['user'=>$user->account])}} ">
+                     <div class="avatar"> 
+            
+                 <img class="img-circle" src="{{asset('user/avatars/'.$user->avatar)}} ">
+                 </div>
+                 <div class="friend-name">  
+                {{$user->designer}}
+                 </div>
+                   
+                 </a>
+               
+               </td>
+               <td class="status"> 
+               
+                <div class="status-content">  
+                {{$user->Write_status->content}}
+
+                </div>
+              </td>
+             </tr>
             @foreach($friends as $friend )
              <tr>
                <td class="friend-block">
@@ -43,9 +65,7 @@
                <td class="status"> 
                
                 <div class="status-content">  
-                  你是一隻魚 何必學著飛翔何必學著飛翔何必學著飛翔
-                  你是一隻魚 何必學著飛翔何必學著飛翔何必學著飛翔
-                
+                {{$friend->Write_status->content}}
 
                 </div>
               </td>
@@ -58,17 +78,20 @@
 
 
         </div>
+        @if(auth::check()&&Auth::user()->account==$user->account)
              <button type="button" class="btn btn-primary btn-lg post-button" data-toggle="modal" data-target=".bs-example-modal-lg">狀態</button>
         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-              <form>
+              <form action="{{route('friend::post-status')}}" method="post">
+              {{csrf_field()}}
                 <div class="form-group">
                 
-                  <input placeholder="48字內" maxlength="48" rows="1" name="title" id="" class="post-title form-control">  </div>
+                  <input placeholder="48字內" maxlength="48" rows="1" name="content" id="" class="post-title form-control">  </div>
                   <button class="btn btn-primary">  送出</button>
                 </form>
               </div>
             </div>
           </div>
+          @endif
   @stop

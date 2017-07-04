@@ -353,12 +353,14 @@
 
 
               // like
-
+             
                 $('.photo-like-link').click(function(event){
                 event.preventDefault();
                     var id=$(this).attr('id').replace('like-','');
-                    var url='{{route('like-photo')}}'
 
+                    var url='{{route('like-photo')}}'
+ 
+             
                 $.ajax({
                   method:'POST',
                   url:url,
@@ -372,22 +374,37 @@
                  }).done(function(msg){
               var like='#like-count-'+id;
                 var text=$(like).text();
-                text=text.replace(/^\d*/g,function(number){
-                    parseInt(number);
+                text=text.replace(/^-*\d*/g,function(number){
+                  number=parseInt(number);
+
+
+                       if($("#like-"+id+">i").hasClass('fa-heart')){
+                 $("#like-"+id+">i").removeClass('fa-heart');
+                 $("#like-"+id+">i").addClass('fa-heart-o');
+                    number--;
+
+              }else {
+                 $("#like-"+id+">i").removeClass('fa-heart-o');
+                  $("#like-"+id+">i").addClass('fa-heart');
                     number++;
-                    return number.toString();
+
+              }
+
+                    return number;
                   });
                    $(like).text(text);
 
-                 })
-                })
-// end like
+                 });
+                });
             $(".photo-like-link").click(function(){
              var id=$(this).attr('id').replace('like-','');
-            $("#like-"+id+">i").removeClass('fa-heart-o');
-            $("#like-"+id+">i").addClass('fa-heart');
 
+
+
+        
             })
+// end like
+
             // upload image
             function readUrl(input){
             if(input.files&&input.files[0]){

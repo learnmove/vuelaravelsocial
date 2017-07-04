@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
+use App\Status;
 class FriendController extends Controller
 {
     //
     public function getIndex($user_account){
     		$user=$this->getUser($user_account);
-    		$friends=$user->friends();
 
+    		$friends=$user->friends();
+    		$friends->load('Write_status');
     	return view('friend.my-friends',compact('user','friends'));
     }
     public function getViewFriend(){
@@ -39,5 +41,11 @@ class FriendController extends Controller
     	$friend=User::find($friend_id);
     	Auth::user()->acceptFriendRequest($friend);
     	return redirect()->back();
+    }
+    public function postStatus(Request $rq){
+    	$user_id=$rq['user_id']=Auth::user()->id;
+    	Status::updateOrCreate(['user_id'=>$user_id],['content'=>$rq->input('content')]);
+    	return redirect()->back();
+
     }
 }

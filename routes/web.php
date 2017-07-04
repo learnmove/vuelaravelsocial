@@ -19,6 +19,7 @@ Route::post('/gallery/photo/like','GalleryController@postLike')->name('like-phot
 Route::get('/gallery/photo/article/{article_id?}','GalleryController@getPhotoArticle')->name('watch-photo');
 
 Route::get('/gallery/photo/article/{article_id?}/detail','GalleryController@RenderArticleDetail')->name('get-photo-detail');
+// 個人相簿
 Route::get('/gallery/album/{user_account}','GalleryController@RenderUserGallery')->name('get-user-album');
 Route::group(['as'=>'blog::','prefix'=>'blog'],function(){
 		
@@ -123,8 +124,7 @@ Route::group(['prefix'=>'friend','as'=>'friend::'],
 		;
 		});
 		Route::get('/list/{user_account}','FriendController@getIndex')->name('user-friend');
-
-		
+		Route::post('/user/status','FriendController@postStatus')->name('post-status');
 	
 		
 });
